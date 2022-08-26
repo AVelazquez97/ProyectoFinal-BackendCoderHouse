@@ -1,5 +1,5 @@
-import { productContainer } from '../api/productContainer.js';
-const productsApi = new productContainer('./app/database/products.json');
+import { ProductContainer } from '../api/productContainer.js';
+const productsApi = new ProductContainer('./app/database/products.json');
 
 const productsController = {
   getAllProducts: async (req, res) => {

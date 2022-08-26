@@ -10,10 +10,11 @@ const app = express();
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api', rest);
 
-app.use(badRequest);
 // app.use(errorHandler);
 
+app.use('/api', rest);
+
+app.use(badRequest); // Middleware que evalua si el endpoint visitado existe o no
 
 export { app };

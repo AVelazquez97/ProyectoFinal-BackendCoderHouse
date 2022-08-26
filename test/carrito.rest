@@ -1,40 +1,49 @@
 ### Prueba de funcionalidad para el carrito
 
-### Get
-GET http://localhost:3000/api/productos HTTP/1.1
-content-type:application/json
-
-### Get con id
-GET http://localhost:3000/api/productos/4 HTTP/1.1
-content-type:application/json
-
-### Get con id inexistente
-GET http://localhost:3000/api/productos/100 HTTP/1.1
-content-type:application/json
-
-### Get con id no numérico
-GET http://localhost:3000/api/productos/hola HTTP/1.1
-content-type:application/json
-
 ### ------------------------------------------------------------------------------ ###
 
-### Post
-POST http://localhost:3000/api/productos HTTP/1.1
+### Post - Crear carrito
+POST http://localhost:8080/api/carrito HTTP/1.1
 content-type:application/json
 
 {
-    "name": "Yerba Baldo 1kg",
-    "description": "Buena calidad",
-    "code": 7730241003920,
-    "thumbnail": "shorturl.at/BCJOQ",
-    "price": 180.6,
-    "stock": 10
+    
 }
 
 ### ------------------------------------------------------------------------------ ###
 
+### Delete - Eliminar un carrito por su id (carrito inexistente)
+DELETE http://localhost:8080/api/carrito/6 HTTP/1.1
+content-type:application/json
+
+### Delete - Eliminar un carrito por su id (carrito existente)
+DELETE http://localhost:8080/api/carrito/3 HTTP/1.1
+content-type:application/json
+### ------------------------------------------------------------------------------ ###
+
+### Gets
+
+### Get con id de un carrito con productos
+GET http://localhost:8080/api/carrito/1/productos/ HTTP/1.1
+content-type:application/json
+
+### Get con id de un carrito sin productos
+GET http://localhost:8080/api/carrito/2/productos/ HTTP/1.1
+content-type:application/json
+
+### Get con id inexistente
+GET http://localhost:8080/api/carrito/100/productos/ HTTP/1.1
+content-type:application/json
+
+### Get con id no numérico
+GET http://localhost:8080/api/carrito/idtres/productos/ HTTP/1.1
+content-type:application/json
+
+### ------------------------------------------------------------------------------ ###
+
+
 ### Put
-PUT http://localhost:3000/api/productos/2 HTTP/1.1
+PUT http://localhost:8080/api/carrito/2 HTTP/1.1
 content-type:application/json
 
 {
@@ -46,8 +55,3 @@ content-type:application/json
     "stock": 3    
 }
 
-### ------------------------------------------------------------------------------ ###
-
-### Delete
-DELETE http://localhost:3000/api/productos/4 HTTP/1.1
-content-type:application/json

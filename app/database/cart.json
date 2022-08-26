@@ -28,8 +28,16 @@
   {
     "id": 2,
     "timestamp": 124124131567,
-    "products": [
-      {}
-    ]
+    "products": []
+  },
+  {
+    "id": 3,
+    "timestamp": 1661479449110,
+    "products": []
+  },
+  {
+    "id": 4,
+    "timestamp": 1661479458513,
+    "products": []
   }
 ]

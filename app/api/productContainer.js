@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-class productContainer {
+class ProductContainer {
   constructor(fileRoute) {
     this.fileRoute = fileRoute;
   }
@@ -146,4 +146,4 @@ class productContainer {
   };
 }
 
-export { productContainer };
+export { ProductContainer };
