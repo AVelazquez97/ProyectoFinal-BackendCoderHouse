@@ -33,7 +33,9 @@ class ProductContainer {
         );
 
         return {
-          msg: `El producto con el id: ${ objects.length + 1 } fue añadido al sistema.`,
+          msg: `El producto con el id: ${
+            objects.length + 1
+          } fue añadido al sistema.`,
         };
       } else {
         await fs.promises.writeFile(
@@ -52,11 +54,10 @@ class ProductContainer {
     try {
       const objects = await this.#viewFile();
       let objectWithId = objects.find((item) => item.id === id);
-      if (objectWithId) {
-        return objectWithId;
-      } else {
-        return { error: 'Producto no encontrado.' };
+      if (!objectWithId) {
+        throw 'Producto no encontrado.';
       }
+      return objectWithId;
     } catch (error) {
       throw `${error}`;
     }
@@ -65,11 +66,10 @@ class ProductContainer {
   getAll = async () => {
     try {
       const objects = await this.#viewFile();
-      if (objects.length) {
-        return objects;
-      } else {
-        return { error: 'No se encontraron productos.' };
+      if (objects.length < 1) {
+        throw 'No se encontraron productos.';
       }
+      return objects;
     } catch (error) {
       throw `${error}`;
     }
@@ -78,17 +78,24 @@ class ProductContainer {
   deleteById = async (id) => {
     try {
       const objects = await this.#viewFile();
+      let productCounter = 1;
       let objectWithId = objects.find((item) => item.id === id);
-      if (objectWithId) {
-        let objectsWhitoutIdItem = objects.filter((item) => item.id !== id);
-        await fs.promises.writeFile(
-          this.fileRoute,
-          JSON.stringify([...objectsWhitoutIdItem], null, 2)
-        );
-        return { msg: 'El producto fue eliminado con éxito.' };
-      } else {
-        return { error: 'Producto no encontrado.' };
+      if (!objectWithId) {
+        throw 'Producto no encontrado.';
       }
+
+      let objectsWithoutIdItem = objects.filter((item) => item.id !== id);
+      const objetctsWithIdsFixed = objectsWithoutIdItem.map((item) => {
+        item.id = productCounter;
+        productCounter++;
+        return item;
+      });
+
+      await fs.promises.writeFile(
+        this.fileRoute,
+        JSON.stringify([...objetctsWithIdsFixed], null, 2)
+      );
+      return { msg: 'El producto fue eliminado con éxito.' };
     } catch (error) {
       throw `${error}`;
     }
@@ -108,13 +115,12 @@ class ProductContainer {
   getRandomProduct = async () => {
     try {
       const objects = await this.#viewFile();
-      if (objects.length) {
-        const randomId = Math.ceil(Math.random() * objects.length);
-        const object = await this.getById(randomId);
-        return object;
-      } else {
-        return { error: 'No se encontraron productos.' };
+      if (!objects.length) {
+        throw 'No se encontraron productos.';
       }
+      const randomId = Math.ceil(Math.random() * objects.length);
+      const object = await this.getById(randomId);
+      return object;
     } catch (error) {
       throw `${error}`;
     }
@@ -126,20 +132,20 @@ class ProductContainer {
       const objectIndex = objects.findIndex(
         (object) => object.id === objData.id
       );
-      if (objectIndex !== -1) {
-        objects[objectIndex] = objData;
-        await fs.promises.writeFile(
-          this.fileRoute,
-          JSON.stringify(objects, null, 2),
-          'utf-8'
-        );
-
-        return {
-          msg: `El producto con el id: ${objData.id} fue actualizado con éxito.`,
-        };
-      } else {
-        return { error: 'El producto con el id indicado no existe.' };
+      if (objectIndex === -1) {
+        throw 'El producto con el id indicado no existe.';
       }
+
+      objects[objectIndex] = objData;
+      await fs.promises.writeFile(
+        this.fileRoute,
+        JSON.stringify(objects, null, 2),
+        'utf-8'
+      );
+
+      return {
+        msg: `El producto con el id: ${objData.id} fue actualizado con éxito.`,
+      };
     } catch (error) {
       throw `${error}`;
     }

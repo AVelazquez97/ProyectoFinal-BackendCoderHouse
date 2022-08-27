@@ -23,7 +23,7 @@ const cartsController = {
         const msg = await cartApi.deleteById(id);
         res.status(200).json(msg);
       } catch (error) {
-        res.status(500).json({error});
+        res.status(500).json({ error });
       }
     } else {
       res.status(400).json({ error: 'El parámetro no es un número.' });
@@ -39,22 +39,54 @@ const cartsController = {
         const productsFromCart = await cartApi.getProductsFromCartById(id);
         res.status(200).json(productsFromCart);
       } catch (error) {
-        res.status(500).json({error});
+        res.status(500).json({ error });
       }
     } else {
       res.status(400).json({ error: 'El parámetro no es un número.' });
     }
   },
   addProductToCartById: async (req, res) => {
-    //Para incorporar productos al carrito por su id de producto
-    res.status(200).json({
-      msg: 'Ruta para agregar un producto al carrito utilizando la id del producto',
-    });
+    let { id, id_prod } = req.params;
+    id = parseInt(id);
+    id_prod = parseInt(id_prod);
+
+    if (isNaN(id)) {
+      res.status(400).json({ error: 'El id del carrito debe ser un número' });
+    }
+    if (isNaN(id_prod)) {
+      res.status(400).json({ error: 'El id del producto debe ser un número' });
+    }
+    try {
+      const product = await productsApi.getById(id_prod);
+      try {
+        const msg = await cartApi.saveProduct(id, product);
+        res.status(200).json(msg);
+      } catch (error) {
+        res.status(500).json({ error });
+      }
+    } catch (error) {
+      res.status(500).json({ error });
+    }
   },
+
   deleteProductFromCartById: async (req, res) => {
-    res.status(200).json({
-      msg: 'Ruta para eliminar un producto del carrito utilizando la id del producto',
-    });
-  }, //Eliminar un producto del carrito por su id de carrito y de producto
+    let { id, id_prod } = req.params;
+    id = parseInt(id);
+    id_prod = parseInt(id_prod);
+
+    if (isNaN(id)) {
+      res.status(400).json({ error: 'El id del carrito debe ser un número' });
+    }
+    if (isNaN(id_prod)) {
+      res.status(400).json({ error: 'El id del producto debe ser un número' });
+    }
+    try {
+      const msg = await cartApi.deleteProduct(id, id_prod);
+      res.status(200).json(msg);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  },
 };
+
 export default cartsController;

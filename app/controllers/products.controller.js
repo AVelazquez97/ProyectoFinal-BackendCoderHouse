@@ -7,7 +7,7 @@ const productsController = {
       const allProducts = await productsApi.getAll();
       res.status(200).json(allProducts);
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({error});
     }
   },
   getProductById: async (req, res) => {
@@ -20,7 +20,7 @@ const productsController = {
         const product = await productsApi.getById(id);
         res.status(200).json(product);
       } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({error});
       }
     } else {
       res.status(400).json({ error: 'El parámetro no es un número.' });
@@ -42,7 +42,7 @@ const productsController = {
         });
         res.status(200).json(msg);
       } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({error});
       }
     } else {
       res
@@ -71,7 +71,7 @@ const productsController = {
           });
           res.status(200).json(msg);
         } catch (error) {
-          res.status(500).json(error);
+          res.status(500).json({error});
         }
       } else {
         res.status(400).json({
@@ -90,7 +90,7 @@ const productsController = {
         const msg = await productsApi.deleteById(id);
         res.status(200).json(msg);
       } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({error});
       }
     } else {
       res.status(400).json({ error: 'El parámetro no es un número.' });

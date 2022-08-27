@@ -42,16 +42,41 @@ content-type:application/json
 ### ------------------------------------------------------------------------------ ###
 
 
-### Put
-PUT http://localhost:8080/api/carrito/2 HTTP/1.1
+### Post - Agregar producto con id específico a carrito con id determinado
+POST http://localhost:8080/api/carrito/4/productos/3 HTTP/1.1
 content-type:application/json
 
 {
-    "name": "Calculadora",
-    "description": "Anda bien",
-    "code": 12312414,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
-    "price": 234.56,
-    "stock": 3    
+      
 }
 
+### Post - Agregar producto a carrito con id inexistente
+POST http://localhost:8080/api/carrito/100/productos/4 HTTP/1.1
+content-type:application/json
+
+{
+      
+}
+
+### Post - Agregar producto con id inexistente a carrito
+POST http://localhost:8080/api/carrito/2/productos/100 HTTP/1.1
+content-type:application/json
+
+{
+      
+}
+
+### ------------------------------------------------------------------------------ ###
+
+### Delete
+DELETE http://localhost:8080/api/carrito/4/productos/3 HTTP/1.1
+content-type:application/json
+
+
+### Delete - Intento de borrado de producto que no existe en el carrito
+DELETE http://localhost:8080/api/carrito/4/productos/100 HTTP/1.1
+content-type:application/json
+
+### Delete - Intento de borrado de un producto de un carrito inexistente
+DELETE http://localhost:8080/api/carrito/100/productos/1 HTTP/1.1
+content-type:application/json

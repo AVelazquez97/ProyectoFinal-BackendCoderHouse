@@ -23,6 +23,7 @@ POST http://localhost:8080/api/productos HTTP/1.1
 content-type:application/json
 
 {
+    "isAdmin": true,
     "name": "Yerba Baldo 1kg",
     "description": "Buena calidad",
     "code": 7730241003920,
@@ -34,10 +35,11 @@ content-type:application/json
 ### ------------------------------------------------------------------------------ ###
 
 ### Put
-PUT http://localhost:8080/api/productos/2 HTTP/1.1
+PUT http://localhost:8080/api/productos/10 HTTP/1.1
 content-type:application/json
 
 {
+    "isAdmin": false,
     "name": "Calculadora",
     "description": "Anda bien",
     "code": 12312414,
@@ -49,5 +51,13 @@ content-type:application/json
 ### ------------------------------------------------------------------------------ ###
 
 ### Delete
-DELETE http://localhost:8080/api/productos/4 HTTP/1.1
+DELETE http://localhost:8080/api/productos/10 HTTP/1.1
+content-type:application/json
+
+{
+    "isAdmin": false
+}
+
+### Delete - Borrado de producto inexistente
+DELETE http://localhost:8080/api/productos/8 HTTP/1.1
 content-type:application/json
