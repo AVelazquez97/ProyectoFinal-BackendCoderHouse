@@ -29,3 +29,15 @@ node server.js
 ## Testing
 
 + With rest-client
+
+
+# Urls
+
+## API root:
++ https://backend-ecommerce-finalproject.glitch.me/api/
+
+## Get all products:
++ https://backend-ecommerce-finalproject.glitch.me/api/productos/
+
+## Get all products of an especific cart:
++ https://backend-ecommerce-finalproject.glitch.me/api/carrito/1/productos/
