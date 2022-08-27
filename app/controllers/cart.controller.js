@@ -5,32 +5,29 @@ const productsApi = new ProductContainer('./app/database/products.json');
 const cartApi = new CartContainer('./app/database/cart.json');
 
 const cartsController = {
-  createCart: async (req, res) => {
-    //Crea un carrito y devuelve su id.
+  createCart: async (req, res, next) => {
     try {
       const msg = await cartApi.buildCart({});
       res.status(200).json(msg);
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   },
-  deleteCartById: async (req, res) => {
-    //Vacía un carrito y lo elimina.
+  deleteCartById: async (req, res, next) => {
     let { id } = req.params;
-    id = parseInt(id);
     if (!isNaN(id)) {
       try {
+        id = parseInt(id);
         const msg = await cartApi.deleteById(id);
         res.status(200).json(msg);
       } catch (error) {
-        res.status(500).json({ error });
+        next(error);
       }
     } else {
       res.status(400).json({ error: 'El parámetro no es un número.' });
     }
   },
-  getAllProductsFromCartById: async (req, res) => {
-    //Me permite listar todos los productos guardados en el carrito
+  getAllProductsFromCartById: async (req, res, next) => {
     let { id } = req.params;
     id = parseInt(id);
     // Se evalúa si la conversión a int del número recibido por parámetro es posible o no
@@ -39,13 +36,13 @@ const cartsController = {
         const productsFromCart = await cartApi.getProductsFromCartById(id);
         res.status(200).json(productsFromCart);
       } catch (error) {
-        res.status(500).json({ error });
+        next(error);
       }
     } else {
       res.status(400).json({ error: 'El parámetro no es un número.' });
     }
   },
-  addProductToCartById: async (req, res) => {
+  addProductToCartById: async (req, res, next) => {
     let { id, id_prod } = req.params;
     id = parseInt(id);
     id_prod = parseInt(id_prod);
@@ -62,14 +59,14 @@ const cartsController = {
         const msg = await cartApi.saveProduct(id, product);
         res.status(200).json(msg);
       } catch (error) {
-        res.status(500).json({ error });
+        next(error);
       }
     } catch (error) {
-      res.status(500).json({ error });
+      next(error);
     }
   },
 
-  deleteProductFromCartById: async (req, res) => {
+  deleteProductFromCartById: async (req, res, next) => {
     let { id, id_prod } = req.params;
     id = parseInt(id);
     id_prod = parseInt(id_prod);
@@ -84,7 +81,7 @@ const cartsController = {
       const msg = await cartApi.deleteProduct(id, id_prod);
       res.status(200).json(msg);
     } catch (error) {
-      res.status(500).json({ error });
+      next(error);
     }
   },
 };

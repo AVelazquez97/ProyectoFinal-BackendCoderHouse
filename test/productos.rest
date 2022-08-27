@@ -55,9 +55,13 @@ DELETE http://localhost:8080/api/productos/10 HTTP/1.1
 content-type:application/json
 
 {
-    "isAdmin": false
+    "isAdmin": true
 }
 
 ### Delete - Borrado de producto inexistente
-DELETE http://localhost:8080/api/productos/8 HTTP/1.1
+DELETE http://localhost:8080/api/productos/100 HTTP/1.1
 content-type:application/json
+
+{
+    "isAdmin": true
+}

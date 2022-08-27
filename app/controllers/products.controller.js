@@ -2,12 +2,12 @@ import { ProductContainer } from '../api/productContainer.js';
 const productsApi = new ProductContainer('./app/database/products.json');
 
 const productsController = {
-  getAllProducts: async (req, res) => {
+  getAllProducts: async (req, res, next) => {
     try {
       const allProducts = await productsApi.getAll();
       res.status(200).json(allProducts);
     } catch (error) {
-      res.status(500).json({error});
+      next(error);
     }
   },
   getProductById: async (req, res) => {
