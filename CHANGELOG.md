@@ -1,0 +1,1 @@
+- Se implementó middleware de manejo de errores, y también de validador de ids recibidos por parámetro de url.

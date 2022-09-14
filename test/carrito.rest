@@ -17,7 +17,7 @@ DELETE http://localhost:8080/api/carrito/10 HTTP/1.1
 content-type:application/json
 
 ### Delete - Eliminar un carrito por su id (carrito existente)
-DELETE http://localhost:8080/api/carrito/3 HTTP/1.1
+DELETE http://localhost:8080/api/carrito/5 HTTP/1.1
 content-type:application/json
 
 ### Delete - Eliminar un carrito con id no númerico
@@ -70,6 +70,22 @@ content-type:application/json
       
 }
 
+### Post - Agregar producto con id no númerico a carrito
+POST http://localhost:8080/api/carrito/2/productos/idcuatro HTTP/1.1
+content-type:application/json
+
+{
+      
+}
+
+### Post - Agregar producto a carrito ingresando id no númerico
+POST http://localhost:8080/api/carrito/iddiez/productos/2 HTTP/1.1
+content-type:application/json
+
+{
+      
+}
+
 ### ------------------------------------------------------------------------------ ###
 
 ### Delete
@@ -83,4 +99,12 @@ content-type:application/json
 
 ### Delete - Intento de borrado de un producto de un carrito inexistente
 DELETE http://localhost:8080/api/carrito/100/productos/1 HTTP/1.1
+content-type:application/json
+
+### Delete - Intento de borrado de un producto de un carrito con id no numerico
+DELETE http://localhost:8080/api/carrito/hola/productos/1 HTTP/1.1
+content-type:application/json
+
+### Delete - Intento de borrado de un producto de un carrito con id no numerico
+DELETE http://localhost:8080/api/carrito/1/productos/hola HTTP/1.1
 content-type:application/json

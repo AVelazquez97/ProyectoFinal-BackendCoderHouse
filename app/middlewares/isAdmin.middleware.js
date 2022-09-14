@@ -3,8 +3,9 @@ const isAdmin = (req, res, next) => {
     next();
   } else {
     res.status(403).json({
-        error: `-1, descripcion: ruta ${req.url} método ${req.method} no autorizada`,
-      });
+      error: -1,
+      descripcion: `ruta ${req.url} método ${req.method} no autorizada`,
+    });
   }
 };
 

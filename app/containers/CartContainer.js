@@ -80,24 +80,28 @@ class CartContainer {
       throw `${error}`;
     }
   };
-
   deleteById = async (id) => {
     //Vacía un carrito y lo elimina.
     try {
       const carts = await this.#viewFile();
-      let cartWithIdFounded = carts.find((item) => item.id === id);
-      if (cartWithIdFounded) {
-        let cartsWhitoutIdItem = carts.filter((item) => item.id !== id);
-        await fs.promises.writeFile(
-          this.fileRoute,
-          JSON.stringify([...cartsWhitoutIdItem], null, 2)
-        );
-        return {
-          msg: 'El carrito con el id indicado fue eliminado con éxito.',
-        };
-      } else {
-        throw 'No existe un carrito con ese id.';
+      let cartCounter = 1;
+      let cartWithId = carts.find((item) => item.id === id);
+      if (!cartWithId) {
+        throw 'Carrito no encontrado.';
       }
+
+      let cartsWithoutIdItem = carts.filter((item) => item.id !== id);
+      const cartsWithIdsFixed = cartsWithoutIdItem.map((item) => {
+        item.id = cartCounter;
+        cartCounter++;
+        return item;
+      });
+
+      await fs.promises.writeFile(
+        this.fileRoute,
+        JSON.stringify([...cartsWithIdsFixed], null, 2)
+      );
+      return { msg: 'El carrito fue eliminado con éxito.' };
     } catch (error) {
       throw `${error}`;
     }

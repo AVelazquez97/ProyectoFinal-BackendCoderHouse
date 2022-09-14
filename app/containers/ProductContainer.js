@@ -85,7 +85,7 @@ class ProductContainer {
       }
 
       let objectsWithoutIdItem = objects.filter((item) => item.id !== id);
-      const objetctsWithIdsFixed = objectsWithoutIdItem.map((item) => {
+      const objectsWithIdsFixed = objectsWithoutIdItem.map((item) => {
         item.id = productCounter;
         productCounter++;
         return item;
@@ -93,7 +93,7 @@ class ProductContainer {
 
       await fs.promises.writeFile(
         this.fileRoute,
-        JSON.stringify([...objetctsWithIdsFixed], null, 2)
+        JSON.stringify([...objectsWithIdsFixed], null, 2)
       );
       return { msg: 'El producto fue eliminado con éxito.' };
     } catch (error) {
