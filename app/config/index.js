@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const APP_PORT = process.env.APP_PORT;
+const APP_PORT = process.env.APP_PORT || 8080;
 const MONGO_URL = process.env.MONGO_URL;
 const MARIADB_CONNECTION = {
   host: process.env.DB_HOST,
@@ -10,6 +10,6 @@ const MARIADB_CONNECTION = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
 };
-const PERSISTENCY = process.env.PERSISTENCY;
+const PERSISTENCY = process.env.PERSISTENCY || 'fileSystem';
 
 export { APP_PORT, MONGO_URL, MARIADB_CONNECTION, PERSISTENCY };

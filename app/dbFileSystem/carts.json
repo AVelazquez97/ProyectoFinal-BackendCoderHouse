@@ -95,6 +95,27 @@
   {
     "id": 5,
     "timestamp": 1661569003572,
-    "products": []
+    "products": [
+      {
+        "id": 1,
+        "timestamp": 1661220582600,
+        "name": "Globo Terráqueo",
+        "description": "Muy detallado",
+        "code": 12312414,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
+        "price": 345.67,
+        "stock": 15
+      },
+      {
+        "id": 2,
+        "timestamp": 1661565587054,
+        "name": "Calculadora",
+        "description": "Anda bien",
+        "code": 12312414,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+        "price": 234.56,
+        "stock": 3
+      }
+    ]
   }
 ]

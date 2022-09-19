@@ -1,10 +1,20 @@
-import { ProductContainer } from '../containers/ProductContainer.js';
-const productsApi = new ProductContainer('./app/dbFileSystem/products.json');
+import DAOFactory from '../DAOs/DAOFactory.js';
+import { PERSISTENCY } from '../config/index.js';
+
+let productDAO;
+(async () => {
+  try {
+    productDAO = await DAOFactory.getPersistency('products', PERSISTENCY);
+    return productDAO;
+  } catch (error) {
+    throw `${error}`;
+  }
+})();
 
 const productsController = {
   getAllProducts: async (req, res, next) => {
     try {
-      const allProducts = await productsApi.getAll();
+      const allProducts = await productDAO.getAll();
       res.status(200).json(allProducts);
     } catch (error) {
       next(error);
@@ -14,7 +24,7 @@ const productsController = {
     let { id } = req.params;
     id = parseInt(id);
     try {
-      const product = await productsApi.getById(id);
+      const product = await productDAO.getById(id);
       res.status(200).json(product);
     } catch (error) {
       next(error);
@@ -26,7 +36,7 @@ const productsController = {
       //si todos los campos están completos, se procede a ingresar el producto
       price = parseFloat(price);
       try {
-        const msg = await productsApi.save({
+        const msg = await productDAO.insertProduct({
           name,
           description,
           code,
@@ -49,10 +59,10 @@ const productsController = {
     id = parseInt(id);
     let { name, description, code, thumbnail, price, stock } = req.body;
     if (name && description && code && thumbnail && price && stock) {
-      //si los tres campos del form están completos, se procede a ingresar el producto
+      //si los campos del form están completos, se procede a ingresar el producto
       price = parseFloat(price);
       try {
-        const msg = await productsApi.updateProduct({
+        const msg = await productDAO.updateProduct({
           id,
           timestamp: Date.now(),
           name,
@@ -62,7 +72,7 @@ const productsController = {
           price,
           stock,
         });
-        res.status(200).json(msg);
+        return res.status(200).json(msg);
       } catch (error) {
         next(error);
       }
@@ -76,7 +86,7 @@ const productsController = {
     let { id } = req.params;
     id = parseInt(id);
     try {
-      const msg = await productsApi.deleteById(id);
+      const msg = await productDAO.deleteById(id);
       res.status(200).json(msg);
     } catch (error) {
       next(error);

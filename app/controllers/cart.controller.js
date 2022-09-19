@@ -1,13 +1,20 @@
-import { CartContainer } from '../containers/CartContainer.js';
-import { ProductContainer } from '../containers/ProductContainer.js';
+import DAOFactory from '../DAOs/DAOFactory.js';
+import { PERSISTENCY } from '../config/index.js';
 
-const productsApi = new ProductContainer('./app/dbFileSystem/products.json');
-const cartApi = new CartContainer('./app/dbFileSystem/cart.json');
+let cartDAO;
+(async () => {
+  try {
+    cartDAO = await DAOFactory.getPersistency('carts', PERSISTENCY);
+    return cartDAO;
+  } catch (error) {
+    throw `${error}`;
+  }
+})();
 
 const cartsController = {
   createCart: async (req, res, next) => {
     try {
-      const msg = await cartApi.buildCart({});
+      const msg = await cartDAO.buildCart({});
       res.status(200).json(msg);
     } catch (error) {
       next(error);
@@ -17,7 +24,7 @@ const cartsController = {
     let { id } = req.params;
     id = parseInt(id);
     try {
-      const msg = await cartApi.deleteById(id);
+      const msg = await cartDAO.deleteById(id);
       res.status(200).json(msg);
     } catch (error) {
       next(error);
@@ -27,7 +34,7 @@ const cartsController = {
     let { id } = req.params;
     id = parseInt(id);
     try {
-      const productsFromCart = await cartApi.getProductsFromCartById(id);
+      const productsFromCart = await cartDAO.getProductsFromCartById(id);
       res.status(200).json(productsFromCart);
     } catch (error) {
       next(error);
@@ -39,13 +46,8 @@ const cartsController = {
     id_prod = parseInt(id_prod);
 
     try {
-      const product = await productsApi.getById(id_prod);
-      try {
-        const msg = await cartApi.saveProduct(id, product);
-        res.status(200).json(msg);
-      } catch (error) {
-        next(error);
-      }
+      const msg = await cartDAO.saveProduct(id, id_prod);
+      res.status(200).json(msg);
     } catch (error) {
       next(error);
     }
@@ -56,7 +58,7 @@ const cartsController = {
     id_prod = parseInt(id_prod);
 
     try {
-      const msg = await cartApi.deleteProduct(id, id_prod);
+      const msg = await cartDAO.deleteProduct(id, id_prod);
       res.status(200).json(msg);
     } catch (error) {
       next(error);

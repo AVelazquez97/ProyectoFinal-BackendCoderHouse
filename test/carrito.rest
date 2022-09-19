@@ -16,8 +16,8 @@ content-type:application/json
 DELETE http://localhost:8080/api/carrito/10 HTTP/1.1
 content-type:application/json
 
-### Delete - Eliminar un carrito por su id (carrito existente)
-DELETE http://localhost:8080/api/carrito/5 HTTP/1.1
+### Delete - Eliminar un carrito por su id
+DELETE http://localhost:8080/api/carrito/6 HTTP/1.1
 content-type:application/json
 
 ### Delete - Eliminar un carrito con id no númerico
@@ -47,7 +47,7 @@ content-type:application/json
 
 
 ### Post - Agregar producto con id específico a carrito con id determinado
-POST http://localhost:8080/api/carrito/4/productos/3 HTTP/1.1
+POST http://localhost:8080/api/carrito/5/productos/2 HTTP/1.1
 content-type:application/json
 
 {

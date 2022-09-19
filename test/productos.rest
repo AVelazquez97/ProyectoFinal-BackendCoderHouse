@@ -26,7 +26,7 @@ content-type:application/json
     "isAdmin": true,
     "name": "Yerba Baldo 1kg",
     "description": "Buena calidad",
-    "code": 7730241003920,
+    "code": 7730241003921,
     "thumbnail": "shorturl.at/BCJOQ",
     "price": 180.6,
     "stock": 10
