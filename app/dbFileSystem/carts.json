@@ -117,5 +117,31 @@
         "stock": 3
       }
     ]
+  },
+  {
+    "id": 6,
+    "timestamp": 1663623878075,
+    "products": [
+      {
+        "id": 1,
+        "timestamp": 1661565587054,
+        "name": "Calculadora",
+        "description": "Anda bien",
+        "code": 12312414,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+        "price": 234.56,
+        "stock": 3
+      },
+      {
+        "id": 2,
+        "timestamp": 1661565587054,
+        "name": "Calculadora",
+        "description": "Anda bien",
+        "code": 12312414,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+        "price": 234.56,
+        "stock": 3
+      }
+    ]
   }
 ]

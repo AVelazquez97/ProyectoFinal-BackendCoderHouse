@@ -28,11 +28,11 @@ content-type:application/json
 ### Gets
 
 ### Get con id de un carrito con productos
-GET http://localhost:8080/api/carrito/1/productos/ HTTP/1.1
+GET http://localhost:8080/api/carrito/4/productos/ HTTP/1.1
 content-type:application/json
 
 ### Get con id de un carrito sin productos
-GET http://localhost:8080/api/carrito/2/productos/ HTTP/1.1
+GET http://localhost:8080/api/carrito/6/productos/ HTTP/1.1
 content-type:application/json
 
 ### Get con id inexistente
@@ -47,7 +47,7 @@ content-type:application/json
 
 
 ### Post - Agregar producto con id específico a carrito con id determinado
-POST http://localhost:8080/api/carrito/5/productos/2 HTTP/1.1
+POST http://localhost:8080/api/carrito/6/productos/2 HTTP/1.1
 content-type:application/json
 
 {
@@ -89,7 +89,7 @@ content-type:application/json
 ### ------------------------------------------------------------------------------ ###
 
 ### Delete
-DELETE http://localhost:8080/api/carrito/4/productos/3 HTTP/1.1
+DELETE http://localhost:8080/api/carrito/6/productos/2 HTTP/1.1
 content-type:application/json
 
 

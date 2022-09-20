@@ -24,9 +24,9 @@ content-type:application/json
 
 {
     "isAdmin": true,
-    "name": "Yerba Baldo 1kg",
-    "description": "Buena calidad",
-    "code": 7730241003921,
+    "name": "Yerba Serena 1kg",
+    "description": "Malísima calidad",
+    "code": 7730241003944,
     "thumbnail": "shorturl.at/BCJOQ",
     "price": 180.6,
     "stock": 10
@@ -34,12 +34,26 @@ content-type:application/json
 
 ### ------------------------------------------------------------------------------ ###
 
-### Put
-PUT http://localhost:8080/api/productos/10 HTTP/1.1
+### Put - Update con fileSystem
+PUT http://localhost:8080/api/productos/8 HTTP/1.1
 content-type:application/json
 
 {
-    "isAdmin": false,
+    "isAdmin": true,
+    "name": "Calculadora",
+    "description": "Anda bien",
+    "code": 12312414,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "price": 234.56,
+    "stock": 3    
+}
+
+### Put - Update con mongoDB
+PUT http://localhost:8080/api/productos/63290dae9f8324e4fec8beef HTTP/1.1
+content-type:application/json
+
+{
+    "isAdmin": true,
     "name": "Calculadora",
     "description": "Anda bien",
     "code": 12312414,
@@ -51,7 +65,7 @@ content-type:application/json
 ### ------------------------------------------------------------------------------ ###
 
 ### Delete
-DELETE http://localhost:8080/api/productos/9 HTTP/1.1
+DELETE http://localhost:8080/api/productos/10 HTTP/1.1
 content-type:application/json
 
 {
@@ -69,6 +83,23 @@ content-type:application/json
 
 ### Delete - Borrado de producto con id no numerico
 DELETE http://localhost:8080/api/productos/hola HTTP/1.1
+content-type:application/json
+
+{
+    "isAdmin": true
+}
+
+### Delete - Borrado de producto no autorizado
+DELETE http://localhost:8080/api/productos/7 HTTP/1.1
+content-type:application/json
+
+{
+    "isAdmin": false
+}
+
+
+### Delete - Borrado de un producto con mongoDB
+DELETE http://localhost:8080/api/productos/63291fc62d23e95cc9fa1fef HTTP/1.1
 content-type:application/json
 
 {

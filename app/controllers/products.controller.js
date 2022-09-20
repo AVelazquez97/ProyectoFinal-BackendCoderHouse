@@ -1,5 +1,7 @@
 import DAOFactory from '../DAOs/DAOFactory.js';
 import { PERSISTENCY } from '../config/index.js';
+import areFieldsFilled from '../utils/areFieldsFilled.js';
+
 
 let productDAO;
 (async () => {
@@ -21,8 +23,7 @@ const productsController = {
     }
   },
   getProductById: async (req, res, next) => {
-    let { id } = req.params;
-    id = parseInt(id);
+    const { id } = req.params;
     try {
       const product = await productDAO.getById(id);
       res.status(200).json(product);
@@ -31,17 +32,16 @@ const productsController = {
     }
   },
   addProduct: async (req, res, next) => {
-    let { name, description, code, thumbnail, price, stock } = req.body;
-    if (name && description && code && thumbnail && price && stock) {
-      //si todos los campos están completos, se procede a ingresar el producto
-      price = parseFloat(price);
+    if (areFieldsFilled(req.body)) {
+      const { name, description, code, thumbnail, price, stock } = req.body;
+      // Si no quedó ningún campo vacío, se procede a ingresar el producto
       try {
         const msg = await productDAO.insertProduct({
           name,
           description,
           code,
           thumbnail,
-          price,
+          price: parseFloat(price),
           stock,
         });
         res.status(200).json(msg);
@@ -49,42 +49,37 @@ const productsController = {
         next(error);
       }
     } else {
-      res
-        .status(400)
-        .json({ error: 'Algunos campos quedaron vacíos. Intenta nuevamente.' });
+      next('Error al insertar: uno o más campos quedaron vacíos.');
     }
   },
   updateProductById: async (req, res, next) => {
-    let { id } = req.params;
-    id = parseInt(id);
-    let { name, description, code, thumbnail, price, stock } = req.body;
-    if (name && description && code && thumbnail && price && stock) {
-      //si los campos del form están completos, se procede a ingresar el producto
-      price = parseFloat(price);
+    if (areFieldsFilled(req.body)) {
+    const { id } = req.params;
+    const { name, description, code, thumbnail, price, stock } = req.body;
+      // Si no quedó ningún campo vacío, se procede a actualizar el producto
       try {
-        const msg = await productDAO.updateProduct({
-          id,
-          timestamp: Date.now(),
-          name,
-          description,
-          code,
-          thumbnail,
-          price,
-          stock,
-        });
-        return res.status(200).json(msg);
+        const msg = await productDAO.updateProduct(
+          { id },
+          {
+            timestamp: Date.now(),
+            name,
+            description,
+            code,
+            thumbnail,
+            price: parseFloat(price),
+            stock,
+          }
+        );
+        res.status(200).json(msg);
       } catch (error) {
         next(error);
       }
     } else {
-      res.status(400).json({
-        error: 'Algunos campos quedaron vacíos. Intenta nuevamente.',
-      });
+      next('Error al actualizar: uno o más campos quedaron vacíos.');
     }
   },
   deleteProductById: async (req, res, next) => {
-    let { id } = req.params;
-    id = parseInt(id);
+    const { id } = req.params;
     try {
       const msg = await productDAO.deleteById(id);
       res.status(200).json(msg);

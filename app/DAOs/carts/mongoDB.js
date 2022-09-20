@@ -16,37 +16,15 @@ class CartsDAOMongoDB extends MongoDBContainer {
     return instanceMongoDB;
   };
 
-  insertProduct = async (data) => {
-    return await this.collectionName.create(data);
-  }
+  createCart = async (_) => {};
 
-  getAll = async () => {
-    const data = await this.collectionName.find();
-    if (data.length > 0) {
-      return data;
-    } else {
-      return [];
-    }
-  }
+  deleteById = async (id) => {};
 
-  getById = async (id) => {
-    const data = await this.collectionName.findById(id);
-    return data;
-  }
+  getProductsFromCartById = async (id) => {};
 
-  async updateProduct(id, data) {
-    return await this.collectionName.findByIdAndUpdate({ _id: id }, data, {
-      new: true,
-    });
-  }
+  insertProduct = async (id, id_prod) => {};
 
-  async deleteById(id) {
-    let data = await this.collectionName.findByIdAndRemove(
-      { _id: id },
-      { rawResult: true }
-    );
-    return data.value;
-  }
+  deleteProduct = async (id, id_prod) => {};
 }
 
-export default CartsDAOMongoDB ;
+export default CartsDAOMongoDB;

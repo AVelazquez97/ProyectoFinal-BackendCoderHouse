@@ -7,58 +7,46 @@ class ProductDAOFileSystem extends FileSystemContainer {
   constructor() {
     super('app/dbFileSystem/products.json');
   }
-  
-  static getInstance() {
-      if (!instanceFileSystem) {
-          instanceFileSystem = new ProductDAOFileSystem();
-      }
 
-      return instanceFileSystem;
+  static getInstance() {
+    if (!instanceFileSystem) {
+      instanceFileSystem = new ProductDAOFileSystem();
+    }
+
+    return instanceFileSystem;
   }
-  insertProduct = async (objData) => {
+  insertProduct = async (productData) => {
     try {
       const objects = await this.viewFile();
       const timestamp = Date.now();
-      if (objects.length) {
-        /*Si ya existen objetos en el fichero, estos se deben mantener y agregar el nuevo*/
-        await fs.promises.writeFile(
-          this.fileRoute,
-          JSON.stringify(
-            [...objects, { id: objects.length + 1, timestamp, ...objData }],
-            null,
-            2
-          ),
-          'utf-8'
-        );
 
-        return {
-          msg: `El producto con el id: ${
-            objects.length + 1
-          } fue añadido al sistema.`,
-        };
-      } else {
-        await fs.promises.writeFile(
-          this.fileRoute,
-          JSON.stringify([{ id: 1, timestamp, ...objData }], null, 2),
-          'utf-8'
-        );
+      await fs.promises.writeFile(
+        this.fileRoute,
+        JSON.stringify(
+          [...objects, { id: objects.length + 1, timestamp, ...productData }],
+          null,
+          2
+        ),
+        'utf-8'
+      );
 
-        return { msg: `El producto con el id: 1 fue añadido al sistema.` };
-      }
+      return { msg: `El producto fue añadido al sistema.` };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
   getById = async (id) => {
     try {
       const objects = await this.viewFile();
-      let objectWithId = objects.find((item) => item.id === id);
+      let objectWithId = objects.find((item) => item.id === Number(id));
       if (!objectWithId) {
-        throw 'Producto no encontrado.';
+        throw new Error(
+          'Error al listar: no se encontró el producto con el id indicado.'
+        );
       }
       return objectWithId;
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
@@ -66,11 +54,13 @@ class ProductDAOFileSystem extends FileSystemContainer {
     try {
       const objects = await this.viewFile();
       if (objects.length < 1) {
-        throw 'No se encontraron productos.';
+        throw new Error(
+          'Error al listar: no hay productos cargados en el sistema.'
+        );
       }
       return objects;
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
@@ -78,12 +68,16 @@ class ProductDAOFileSystem extends FileSystemContainer {
     try {
       const objects = await this.viewFile();
       let productCounter = 1;
-      let objectWithId = objects.find((item) => item.id === id);
+      let objectWithId = objects.find((item) => item.id === Number(id));
       if (!objectWithId) {
-        throw 'Producto no encontrado.';
+        throw new Error(
+          'Error al borrar: no se encontró el producto con el id indicado.'
+        );
       }
 
-      let objectsWithoutIdItem = objects.filter((item) => item.id !== id);
+      let objectsWithoutIdItem = objects.filter(
+        (item) => item.id !== Number(id)
+      );
       const objectsWithIdsFixed = objectsWithoutIdItem.map((item) => {
         item.id = productCounter;
         productCounter++;
@@ -96,7 +90,7 @@ class ProductDAOFileSystem extends FileSystemContainer {
       );
       return { msg: 'El producto fue eliminado con éxito.' };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
@@ -107,7 +101,7 @@ class ProductDAOFileSystem extends FileSystemContainer {
         await fs.promises.writeFile(this.fileRoute, '[]', 'utf8');
       }
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
@@ -115,38 +109,39 @@ class ProductDAOFileSystem extends FileSystemContainer {
     try {
       const objects = await this.viewFile();
       if (!objects.length) {
-        throw 'No se encontraron productos.';
+        throw new Error(
+          'Error al listar: no hay productos cargados en el sistema.'
+        );
       }
       const randomId = Math.ceil(Math.random() * objects.length);
       const object = await this.getById(randomId);
       return object;
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
-  updateProduct = async (objData) => {
+  updateProduct = async ({ id }, productData) => {
+    id = Number(id);
     try {
-      let objects = await this.viewFile();
-      const objectIndex = objects.findIndex(
-        (object) => object.id === objData.id
-      );
+      let products = await this.viewFile();
+      const objectIndex = products.findIndex((object) => object.id === id);
       if (objectIndex === -1) {
-        throw 'El producto con el id indicado no existe.';
+        throw new Error(
+          'Error al actualizar: no se encontró el producto con el id indicado.'
+        );
       }
 
-      objects[objectIndex] = objData;
+      products[objectIndex] = { id, ...productData };
       await fs.promises.writeFile(
         this.fileRoute,
-        JSON.stringify(objects, null, 2),
+        JSON.stringify(products, null, 2),
         'utf-8'
       );
 
-      return {
-        msg: `El producto con el id: ${objData.id} fue actualizado con éxito.`,
-      };
+      return { msg: `El producto fue actualizado con éxito.` };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 }

@@ -21,13 +21,13 @@
   },
   {
     "id": 3,
-    "timestamp": 1661220582600,
-    "name": "Globo Terráqueo",
-    "description": "Muy detallado",
+    "timestamp": 1663628511172,
+    "name": "Calculadora",
+    "description": "Anda bien",
     "code": 12312414,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
-    "price": 345.67,
-    "stock": 15
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "price": 234.56,
+    "stock": 3
   },
   {
     "id": 4,
@@ -71,10 +71,20 @@
   },
   {
     "id": 8,
-    "timestamp": 1661546935632,
-    "name": "Yerba Baldo 1kg",
-    "description": "Buena calidad",
-    "code": 7730241003920,
+    "timestamp": 1663630028609,
+    "name": "Calculadora",
+    "description": "Anda bien",
+    "code": 12312414,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "price": 234.56,
+    "stock": 3
+  },
+  {
+    "id": 9,
+    "timestamp": 1663626072742,
+    "name": "Yerba Sara 1kg",
+    "description": "Mala calidad",
+    "code": 7730241003948,
     "thumbnail": "shorturl.at/BCJOQ",
     "price": 180.6,
     "stock": 10

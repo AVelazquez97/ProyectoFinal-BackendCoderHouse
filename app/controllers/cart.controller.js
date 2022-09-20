@@ -14,15 +14,14 @@ let cartDAO;
 const cartsController = {
   createCart: async (req, res, next) => {
     try {
-      const msg = await cartDAO.buildCart({});
+      const msg = await cartDAO.createCart({});
       res.status(200).json(msg);
     } catch (error) {
       next(error);
     }
   },
   deleteCartById: async (req, res, next) => {
-    let { id } = req.params;
-    id = parseInt(id);
+    const { id } = req.params;
     try {
       const msg = await cartDAO.deleteById(id);
       res.status(200).json(msg);
@@ -31,8 +30,7 @@ const cartsController = {
     }
   },
   getAllProductsFromCartById: async (req, res, next) => {
-    let { id } = req.params;
-    id = parseInt(id);
+    const { id } = req.params;
     try {
       const productsFromCart = await cartDAO.getProductsFromCartById(id);
       res.status(200).json(productsFromCart);
@@ -41,22 +39,16 @@ const cartsController = {
     }
   },
   addProductToCartById: async (req, res, next) => {
-    let { id, id_prod } = req.params;
-    id = parseInt(id);
-    id_prod = parseInt(id_prod);
-
+    const { id, id_prod } = req.params;
     try {
-      const msg = await cartDAO.saveProduct(id, id_prod);
+      const msg = await cartDAO.insertProduct(id, id_prod);
       res.status(200).json(msg);
     } catch (error) {
       next(error);
     }
   },
   deleteProductFromCartById: async (req, res, next) => {
-    let { id, id_prod } = req.params;
-    id = parseInt(id);
-    id_prod = parseInt(id_prod);
-
+    const { id, id_prod } = req.params;
     try {
       const msg = await cartDAO.deleteProduct(id, id_prod);
       res.status(200).json(msg);
