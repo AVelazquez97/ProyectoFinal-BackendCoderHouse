@@ -23,11 +23,11 @@ class CartDAOFileSystem extends FileSystemContainer {
       const cartWithId = carts.find((cart) => cart.id === id);
 
       if (!cartWithId) {
-        throw 'No existe un carrito con ese id.';
+        throw new Error('Error al listar: no existe un carrito con el id indicado.');
       }
       return cartWithId;
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
@@ -43,17 +43,23 @@ class CartDAOFileSystem extends FileSystemContainer {
         'utf-8'
       );
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
   #getProduct = async (id_prod) => {
     try {
       const product = await this.products.getById(id_prod);
+      if (!product) throw new Error('Error al insertar: no existe un producto con el id indicado.');
       return product;
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
+  };
+
+  #compareStockAndQty = (stock, quantity) => {
+    //Se busca evaluar que la cantidad del producto a insertar al carrito sea menor o igual al stock del mismo.
+    return quantity > stock ? stock : quantity;
   };
 
   createCart = async (_) => {
@@ -72,9 +78,9 @@ class CartDAOFileSystem extends FileSystemContainer {
         'utf-8'
       );
 
-      return { msg: `El carrito ha sido creado con éxito.` };
+      return { msg: 'El carrito ha sido creado con éxito.' };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
   deleteById = async (id) => {
@@ -84,7 +90,7 @@ class CartDAOFileSystem extends FileSystemContainer {
       let cartCounter = 1;
       let cartWithId = carts.find((item) => item.id === Number(id));
       if (!cartWithId) {
-        throw 'Carrito no encontrado.';
+        throw new Error('Error al borrar: no existe un carrito con el id indicado.');
       }
 
       let cartsWithoutIdItem = carts.filter((item) => item.id !== id);
@@ -98,34 +104,31 @@ class CartDAOFileSystem extends FileSystemContainer {
         this.fileRoute,
         JSON.stringify([...cartsWithIdsFixed], null, 2)
       );
-      return { msg: 'El carrito fue eliminado con éxito.' };
+      return { msg: 'El carrito ha sido eliminado con éxito.' };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
   getProductsFromCartById = async (id) => {
     try {
-      const carts = await this.viewFile();
-      const cartWithId = carts.find((cart) => cart.id === Number(id));
-      if (!cartWithId) {
-        throw 'No existe un carrito con ese id.';
+      const cart = await this.#getCartById(Number(id));
+      if (cart.products < 1) {
+        throw new Error('Error al listar: el carrito seleccionado no tiene productos.');
       }
-      if (cartWithId.products < 1) {
-        throw 'El carrito está vacío.';
-      }
-      return cartWithId.products;
+      return cart.products;
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
-  insertProduct = async (id, id_prod) => {
+  insertProduct = async (id, id_prod, quantity) => {
     //Para incorporar productos a un carrito por su id de producto
     try {
       const { timestamp, name, description, code, thumbnail, price, stock } =
         await this.#getProduct(Number(id_prod));
       const cart = await this.#getCartById(Number(id));
+      const qty = this.#compareStockAndQty(stock, quantity);
 
       cart.products = [
         ...cart.products,
@@ -137,15 +140,13 @@ class CartDAOFileSystem extends FileSystemContainer {
           code,
           thumbnail,
           price,
-          stock,
+          qty,
         },
       ];
       this.#updateCarts(cart);
-      return {
-        msg: `El producto fue añadido al carrito.`,
-      };
+      return { msg: 'El producto fue añadido al carrito.' };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 
@@ -156,10 +157,10 @@ class CartDAOFileSystem extends FileSystemContainer {
       let productCounter = 1;
 
       if (cart.products < 1) {
-        throw 'El carrito seleccionado no tiene productos.';
+        throw new Error('Error al listar: el carrito seleccionado no tiene productos.');
       }
       if (id_prod > cart.products.length) {
-        throw 'El carrito no tiene un producto con el id seleccionado.';
+        throw new Error('Error al listar: el carrito no tiene un producto con el id indicado.');
       }
 
       const productsWithoutDeletedProduct = cart.products.filter(
@@ -177,9 +178,9 @@ class CartDAOFileSystem extends FileSystemContainer {
       cart.products = productsWithIdsFixed;
       await this.#updateCarts(cart);
 
-      return { msg: `El producto fue eliminado con éxito del carrito.` };
+      return { msg: `El producto fue eliminado del carrito con éxito.` };
     } catch (error) {
-      throw `${error}`;
+      throw error.message;
     }
   };
 }

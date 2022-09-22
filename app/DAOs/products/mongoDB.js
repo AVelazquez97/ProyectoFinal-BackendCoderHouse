@@ -12,14 +12,13 @@ class ProductsDAOMongoDB extends MongoDBContainer {
     if (!instanceMongoDB) {
       instanceMongoDB = new ProductsDAOMongoDB();
     }
-
     return instanceMongoDB;
   };
 
   insertProduct = async (productData) => {
     try {
       await this.collectionName.create(productData);
-      return { msg: `El producto fue añadido al sistema.` };
+      return { msg: 'El producto fue añadido al sistema.' };
     } catch (error) {
       throw error.message;
     }
@@ -76,7 +75,6 @@ class ProductsDAOMongoDB extends MongoDBContainer {
         { _id: id },
         { rawResult: true }
       );
-      // console.log(productDeleted);
       if (!productDeleted.value) {
         throw new Error(
           'Error al borrar: no se encontró el producto con el id indicado.'

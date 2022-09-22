@@ -5,5 +5,5 @@ import { app } from './app/app.js';
 const PORT = APP_PORT;
 app.listen(PORT, (error) => {
   if (error) throw `${error}`;
-  console.log(`Servidor HTTP escuchando en el puerto ${PORT}`);
+  console.info(`Servidor HTTP escuchando en el puerto ${PORT}`);
 });

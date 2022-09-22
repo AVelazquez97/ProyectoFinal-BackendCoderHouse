@@ -40,8 +40,9 @@ const cartsController = {
   },
   addProductToCartById: async (req, res, next) => {
     const { id, id_prod } = req.params;
+    const { quantity } = req.body;
     try {
-      const msg = await cartDAO.insertProduct(id, id_prod);
+      const msg = await cartDAO.insertProduct(id, id_prod, quantity);
       res.status(200).json(msg);
     } catch (error) {
       next(error);

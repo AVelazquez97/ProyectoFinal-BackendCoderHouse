@@ -24,12 +24,12 @@ content-type:application/json
 
 {
     "isAdmin": true,
-    "name": "Yerba Serena 1kg",
-    "description": "Malísima calidad",
-    "code": 7730241003944,
+    "name": "Remera Azul",
+    "description": "Barata",
+    "code": 7730241003349,
     "thumbnail": "shorturl.at/BCJOQ",
-    "price": 180.6,
-    "stock": 10
+    "price": 100.6,
+    "stock": 15
 }
 
 ### ------------------------------------------------------------------------------ ###
