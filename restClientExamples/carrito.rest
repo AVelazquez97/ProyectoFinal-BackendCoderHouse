@@ -28,6 +28,12 @@ content-type:application/json
 DELETE http://localhost:8080/api/carrito/632b848cef15c2c8e52168fa HTTP/1.1
 content-type:application/json
 
+### Delete - Eliminar un carrito con id de firebase
+DELETE http://localhost:8080/api/carrito/K4uGSoLHBxSW9FVclVRc HTTP/1.1
+content-type:application/json
+
+
+
 ### ------------------------------------------------------------------------------ ###
 
 ### Gets
@@ -52,6 +58,9 @@ content-type:application/json
 GET http://localhost:8080/api/carrito/632b8490ef15c2c8e52168fc/productos/ HTTP/1.1
 content-type:application/json
 
+### Get con id de firebase
+GET http://localhost:8080/api/carrito/RzVlX8beRSymhoKL8a06/productos/ HTTP/1.1
+content-type:application/json
 
 ### ------------------------------------------------------------------------------ ###
 
@@ -104,6 +113,15 @@ content-type:application/json
   "quantity": 4 
 }
 
+### Post - Agregar producto a carrito mediante firebase
+POST http://localhost:8080/api/carrito/WGih19AdZ3fpsmEuenju/productos/uCLIAkRf2teDk7vSG4TT HTTP/1.1
+content-type:application/json
+
+{
+  "quantity": 4 
+}
+
+
 
 ### ------------------------------------------------------------------------------ ###
 
@@ -130,4 +148,8 @@ content-type:application/json
 
 ### Delete - Borrado de un producto de un carrito con mongoDB
 DELETE http://localhost:8080/api/carrito/632bb5fe3e4205c46ae012ad/productos/6329209a83451dd02583589f HTTP/1.1
+content-type:application/json
+
+### Delete - Borrado de un producto de un carrito con firebase
+DELETE http://localhost:8080/api/carrito/WGih19AdZ3fpsmEuenju/productos/uCLIAkRf2teDk7vSG4TT HTTP/1.1
 content-type:application/json

@@ -5,7 +5,7 @@ let instanceMongoDB = null;
 
 class MongoDBConnection {
   constructor() {
-    this.msjConnect();
+    this.msgConnect();
     this.msjError();
   }
 
@@ -18,7 +18,7 @@ class MongoDBConnection {
     return connection;
   };
 
-  msjConnect = () => {
+  msgConnect = () => {
     mongoose.connection.on('connected', () => {
       console.log(`[Mongoose(MongoBD)] - Conectada`);
     });
@@ -34,10 +34,10 @@ class MongoDBConnection {
 
   static getMongoDBInstance = () => {
     if (!instanceMongoDB) {
-      instanceMongoDB = new MongoDBConnection(MONGO_URL);
+      instanceMongoDB = new MongoDBConnection();
     }
     return instanceMongoDB;
   };
 }
 
-export { MongoDBConnection };
+export default MongoDBConnection;

@@ -58,10 +58,11 @@ const productsController = {
     const { name, description, code, thumbnail, price, stock } = req.body;
       // Si no quedó ningún campo vacío, se procede a actualizar el producto
       try {
+        const timestamp = new Date();
         const msg = await productDAO.updateProduct(
           { id },
           {
-            timestamp: Date.now(),
+            timestamp,
             name,
             description,
             code,

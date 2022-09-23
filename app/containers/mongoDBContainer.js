@@ -1,4 +1,4 @@
-import { MongoDBConnection } from '../database/connectionMongoDB.js';
+import MongoDBConnection from '../database/connectionMongoDB.js';
 
 class MongoDBContainer {
   constructor() {

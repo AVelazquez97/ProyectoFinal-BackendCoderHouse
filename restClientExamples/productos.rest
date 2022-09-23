@@ -18,23 +18,23 @@ content-type:application/json
 
 ### ------------------------------------------------------------------------------ ###
 
-### Post
+### Post - Insertar producto
 POST http://localhost:8080/api/productos HTTP/1.1
 content-type:application/json
 
 {
     "isAdmin": true,
-    "name": "Remera Azul",
-    "description": "Barata",
-    "code": 7730241003349,
+    "name": "Pantalón nike",
+    "description": "Nuevito",
+    "code": 7730651003567,
     "thumbnail": "shorturl.at/BCJOQ",
-    "price": 100.6,
-    "stock": 15
+    "price": 500.6,
+    "stock": 20
 }
 
 ### ------------------------------------------------------------------------------ ###
 
-### Put - Update con fileSystem
+### Put - Actualizar producto con fileSystem
 PUT http://localhost:8080/api/productos/8 HTTP/1.1
 content-type:application/json
 
@@ -61,6 +61,22 @@ content-type:application/json
     "price": 234.56,
     "stock": 3    
 }
+
+### Put - Update con firebase
+PUT http://localhost:8080/api/productos/KEzs8WpHR08KU2coETdp HTTP/1.1
+content-type:application/json
+
+{
+    "isAdmin": true,
+    "name": "Pantalón nike",
+    "description": "Nuevito",
+    "code": 7730651003567,
+    "thumbnail": "shorturl.at/BCJOQ",
+    "price": 200.6,
+    "stock": 10    
+}
+
+
 
 ### ------------------------------------------------------------------------------ ###
 
@@ -100,6 +116,15 @@ content-type:application/json
 
 ### Delete - Borrado de un producto con mongoDB
 DELETE http://localhost:8080/api/productos/63291fc62d23e95cc9fa1fef HTTP/1.1
+content-type:application/json
+
+{
+    "isAdmin": true
+}
+
+###KEzs8WpHR08KU2coETdp
+### Delete - Borrado de un producto con firebase
+DELETE http://localhost:8080/api/productos/KEzs8WpHR08KU2coETdp HTTP/1.1
 content-type:application/json
 
 {

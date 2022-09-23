@@ -1,13 +1,13 @@
 import FileSystemContainer from '../../containers/fileSystemContainer.js';
 import fs from 'fs';
-import productsDAO from '../products/fileSystem.js';
+import ProductsDAO from '../products/fileSystem.js';
 
 let instanceFileSystem = null;
 
 class CartDAOFileSystem extends FileSystemContainer {
   constructor() {
     super('app/dbFileSystem/carts.json');
-    this.products = productsDAO.getInstance();
+    this.products = ProductsDAO.getInstance();
   }
 
   static getInstance() {

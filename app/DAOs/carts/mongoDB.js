@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import MongoDBContainer from '../../containers/mongoDBContainer.js';
 import cartModel from '../../models/mongoose/carts.model.js';
-import productsDAO from '../products/mongoDB.js';
+import ProductsDAO from '../products/mongoDB.js';
 
 let instanceMongoDB = null;
 class CartsDAOMongoDB extends MongoDBContainer {
   constructor() {
     super();
     this.collectionName = cartModel;
-    this.products = productsDAO.getInstance();
+    this.products = ProductsDAO.getInstance();
   }
 
   static getInstance = () => {
@@ -45,7 +45,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
   createCart = async (_) => {
     try {
       await this.collectionName.create({
-        time: new Date(),
+        timestamp: new Date(),
         products: [],
       });
       return { msg: 'El carrito ha sido creado con éxito.' };
@@ -73,6 +73,13 @@ class CartsDAOMongoDB extends MongoDBContainer {
 
   getProductsFromCartById = async (id) => {
     try {
+      const cart = await this.#findCartById(id);
+      if (!cart) {
+        throw new Error(
+          'Error al listar: no existe un carrito con el id indicado.'
+        );
+      }
+
       const productsFromCart = await this.collectionName.findOne(
         { _id: id },
         { _id: 1, products: 1 }

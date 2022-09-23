@@ -1,1 +1,3 @@
-- Se implementó middleware de manejo de errores, y también de validador de ids recibidos por parámetro de url.
+- Se implementó middleware de manejo de errores.
+- Se implementó DAOFactory con import dínamico para seleccionar la persistencia de preferencia. ('fileSystem', 'mongoDB', 'firebase') 
+- Se refactorizaron los controllers para que sean más eficientes.

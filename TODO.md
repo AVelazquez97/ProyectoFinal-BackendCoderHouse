@@ -1,7 +1,6 @@
-# Urgente:
-+ Completar el desarrollo de las DAOs y DAO factory
-
 # Opcional: 
-+ Mejorar el código de las funciones que tienen demasiado complejidad (refactorizar)
++ Refactorizar el código de las funciones  y/o métodos que tengan demasiado complejidad
 
 + Desarrollar una capa de frontend
+
++ Implementar capa de persistencia gestionada con MySQL
