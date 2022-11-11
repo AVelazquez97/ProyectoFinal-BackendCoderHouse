@@ -1,3 +1,4 @@
+import { LoggerError } from "../config/log4.js";
 const errorHandler = (error, req, res, next) => {
   const notFoundedErrors = [
     /* -------------------- Errores relacionados a productos -------------------- */
@@ -21,7 +22,7 @@ const errorHandler = (error, req, res, next) => {
   } else {
     res.status(500);
   }
-  console.log(error);
+  LoggerError.error(error);
   res.json({ error });
 };
 

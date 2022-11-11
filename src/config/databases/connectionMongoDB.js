@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { MONGO_URL } from '../config/index.js';
+import { MONGO_URL } from '../index.js';
+import { LoggerInfo, LoggerError } from '../log4.js';
 
 let instanceMongoDB = null;
 
@@ -20,14 +21,14 @@ class MongoDBConnection {
 
   msgConnect = () => {
     mongoose.connection.on('connected', () => {
-      console.log(`[Mongoose(MongoBD)] - Conectada`);
+      LoggerInfo.info(`[Mongoose(MongoBD)] - Conectada`);
     });
     return false;
   };
 
   msjError = () => {
     mongoose.connection.on('error', (err) => {
-      console.log('[Mongoose(MongoBD)] - Error:', err.message);
+      LoggerError.error('[Mongoose(MongoBD)] - Error:', err.message);
     });
     return false;
   };

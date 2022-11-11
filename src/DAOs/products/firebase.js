@@ -27,7 +27,6 @@ class ProductsDAOFirebase extends FirebaseContainer {
 
       return { msg: 'El producto fue añadido al sistema.' };
     } catch (error) {
-      console.log(error);
       throw error.message;
     }
   };

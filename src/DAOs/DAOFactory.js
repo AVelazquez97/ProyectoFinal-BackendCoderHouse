@@ -1,11 +1,13 @@
+import { LoggerError } from '../config/log4.js';
+
 class DAOFactory {
   static getPersistency = async (entity, type) => {
     try {
       const { default: persistency } = await import(`./${entity}/${type}.js`);
       return persistency.getInstance();
     } catch (error) {
-      console.log(error);
-      // throw `${error}`;
+      LoggerError.error(error);
+      throw `${error}`;
     }
   };
 }

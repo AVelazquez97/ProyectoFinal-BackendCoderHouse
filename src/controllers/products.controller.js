@@ -1,6 +1,7 @@
 import DAOFactory from '../DAOs/DAOFactory.js';
 import { PERSISTENCY } from '../config/index.js';
 import areFieldsFilled from '../utils/areFieldsFilled.js';
+import { LoggerError } from '../config/log4.js';
 
 
 let productDAO;
@@ -9,6 +10,7 @@ let productDAO;
     productDAO = await DAOFactory.getPersistency('products', PERSISTENCY);
     return productDAO;
   } catch (error) {
+    LoggerError.error(error);
     throw `${error}`;
   }
 })();

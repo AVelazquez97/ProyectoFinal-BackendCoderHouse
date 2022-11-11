@@ -1,7 +1,14 @@
+import parseArgs from 'minimist';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const APP_PORT = process.env.APP_PORT || 8080;
+/* ----------------------------- params settings ---------------------------- */
+const options = { default: { port: 8080 } };
+const args = parseArgs(process.argv.slice(2), options);
+
+const CLUSTER_MODE = "true" === process.env.CLUSTER_MODE;
+
+const APP_PORT = process.env.APP_PORT || args.port;
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -29,6 +36,7 @@ const MARIADB_CONNECTION = {
 const PERSISTENCY = process.env.PERSISTENCY || 'fileSystem';
 
 export {
+  CLUSTER_MODE,
   APP_PORT,
   MONGO_URL,
   FIREBASE_CONNECTION,

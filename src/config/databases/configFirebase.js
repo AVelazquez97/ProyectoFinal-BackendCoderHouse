@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
-import { FIREBASE_CONNECTION } from '../config/index.js';
+import { FIREBASE_CONNECTION } from '../index.js';
+import { LoggerInfo } from '../log4.js';
 
 let instanceFirebase = null;
 
@@ -17,7 +18,7 @@ class FirebaseConnection {
   };
 
   #msgConnect = () => {
-    console.log(`[Firebase(Firestore)] - Conectada`);
+    LoggerInfo.info(`[Firebase(Firestore)] - Conectada`);
     return false;
   };
 

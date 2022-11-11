@@ -1,5 +1,6 @@
 import DAOFactory from '../DAOs/DAOFactory.js';
 import { PERSISTENCY } from '../config/index.js';
+import { LoggerError } from '../config/log4.js';
 
 let cartDAO;
 (async () => {
@@ -7,6 +8,7 @@ let cartDAO;
     cartDAO = await DAOFactory.getPersistency('carts', PERSISTENCY);
     return cartDAO;
   } catch (error) {
+    LoggerError.error(error);
     throw `${error}`;
   }
 })();

@@ -5,7 +5,7 @@ let instanceFileSystem = null;
 
 class ProductDAOFileSystem extends FileSystemContainer {
   constructor() {
-    super('app/dbFileSystem/products.json');
+    super('src/dbFileSystem/products.json');
   }
 
   static getInstance() {

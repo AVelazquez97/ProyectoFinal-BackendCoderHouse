@@ -1,4 +1,4 @@
-import { MARIADB_CONNECTION } from "../config/index.js";
+import { MARIADB_CONNECTION } from "../index.js";
 
 const connectionMariaDB = {
   client: 'mysql',

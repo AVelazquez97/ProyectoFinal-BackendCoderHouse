@@ -1,4 +1,4 @@
-import FirebaseConnection from '../database/configFirebase.js';
+import FirebaseConnection from '../config/databases/configFirebase.js';
 const firebase = FirebaseConnection.getFirebaseConnectionInstance();
 
 class FirebaseContainer {
