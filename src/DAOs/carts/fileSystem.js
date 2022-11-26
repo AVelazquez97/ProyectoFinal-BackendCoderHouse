@@ -68,7 +68,7 @@ class CartDAOFileSystem extends FileSystemContainer {
       const timestamp = Date.now();
       const products = [];
 
-      await fs.promises.writeFile(
+      const cart = await fs.promises.writeFile(
         this.fileRoute,
         JSON.stringify(
           [...carts, { id: carts.length + 1, timestamp, products }],
@@ -78,7 +78,7 @@ class CartDAOFileSystem extends FileSystemContainer {
         'utf-8'
       );
 
-      return { msg: 'El carrito ha sido creado con éxito.' };
+      return cart.id;
     } catch (error) {
       throw error.message;
     }

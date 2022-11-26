@@ -1,4 +1,4 @@
-import { LoggerError } from "../config/log4.js";
+import { LoggerError, LoggerWarn } from '../config/log4.js';
 const errorHandler = (error, req, res, next) => {
   const notFoundedErrors = [
     /* -------------------- Errores relacionados a productos -------------------- */
@@ -16,14 +16,17 @@ const errorHandler = (error, req, res, next) => {
     'Error al listar: el carrito no tiene un producto con el id indicado.',
     'Error al borrar: no existe un carrito con el id indicado.',
     'Error al borrar: no existe en el carrito un producto con el id indicado.',
+    /* -------------- Errores relacionados a filtrado de productos -------------- */
+    'Error al buscar: no hay productos que coincidan con los filtros.',
   ];
   if (notFoundedErrors.includes(error)) {
     res.status(404);
+    LoggerError.warn(error);
   } else {
     res.status(500);
+    LoggerError.error(error);
   }
-  LoggerError.error(error);
-  res.json({ error });
+  return res.json({ error });
 };
 
-export { errorHandler };
+export default errorHandler;

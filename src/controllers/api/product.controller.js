@@ -1,8 +1,7 @@
-import DAOFactory from '../DAOs/DAOFactory.js';
-import { PERSISTENCY } from '../config/index.js';
-import areFieldsFilled from '../utils/areFieldsFilled.js';
-import { LoggerError } from '../config/log4.js';
-
+import DAOFactory from '../../DAOs/DAOFactory.js';
+import { PERSISTENCY } from '../../config/index.js';
+import { LoggerError } from '../../config/log4.js';
+import areFieldsFilled from '../../utils/areFieldsFilled.js';
 
 let productDAO;
 (async () => {
@@ -33,6 +32,21 @@ const productsController = {
       next(error);
     }
   },
+  searchProductByFilter: async (req, res, next) => {
+    const filters = req.query;
+    /*Con las siguientes líneas se busca parsear todo los valores de la query para evitar errores*/
+    filters.name.length === 0 ? (filters.name = null) : '';
+    filters.minPrice.length === 0 ? (filters.minPrice = null) : filters.minPrice = parseFloat(filters.minPrice);
+    filters.maxPrice.length === 0 ? (filters.maxPrice = null) : filters.maxPrice = parseFloat(filters.maxPrice);
+    filters.minStock.length === 0 ? (filters.minStock = null) : filters.minStock = parseFloat(filters.minStock);
+    filters.maxStock.length === 0 ? (filters.maxStock = null) : filters.maxStock = parseFloat(filters.maxStock);
+    try {
+      const products = await productDAO.searchByFilter(filters);
+      res.status(200).json(products);
+    } catch (error) {
+      next(error);
+    }
+  },
   addProduct: async (req, res, next) => {
     if (areFieldsFilled(req.body)) {
       const { name, description, code, thumbnail, price, stock } = req.body;
@@ -56,8 +70,8 @@ const productsController = {
   },
   updateProductById: async (req, res, next) => {
     if (areFieldsFilled(req.body)) {
-    const { id } = req.params;
-    const { name, description, code, thumbnail, price, stock } = req.body;
+      const { id } = req.params;
+      const { name, description, code, thumbnail, price, stock } = req.body;
       // Si no quedó ningún campo vacío, se procede a actualizar el producto
       try {
         const timestamp = new Date();

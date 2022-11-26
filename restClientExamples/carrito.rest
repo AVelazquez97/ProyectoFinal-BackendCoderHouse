@@ -25,7 +25,7 @@ DELETE http://localhost:8080/api/carrito/veinte HTTP/1.1
 content-type:application/json
 
 ### Delete - Eliminar un carrito con id de mongoDB
-DELETE http://localhost:8080/api/carrito/632b848cef15c2c8e52168fa HTTP/1.1
+DELETE http://localhost:8080/api/carrito/637faf31f9dfb804875e3b5e HTTP/1.1
 content-type:application/json
 
 ### Delete - Eliminar un carrito con id de firebase

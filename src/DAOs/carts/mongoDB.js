@@ -44,11 +44,11 @@ class CartsDAOMongoDB extends MongoDBContainer {
 
   createCart = async (_) => {
     try {
-      await this.collectionName.create({
+      const cart = await this.collectionName.create({
         timestamp: new Date(),
         products: [],
       });
-      return { msg: 'El carrito ha sido creado con éxito.' };
+      return cart.id;
     } catch (error) {
       throw error.message;
     }

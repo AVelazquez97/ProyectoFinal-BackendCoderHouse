@@ -40,11 +40,11 @@ class CartsDAOFirebase extends FirebaseContainer {
 
   createCart = async (_) => {
     try {
-      await this.collectionName.add({
+      const cart = await this.collectionName.add({
         timestamp: new Date(),
         products: [],
       });
-      return { msg: 'El carrito ha sido creado con éxito.' };
+      return cart.id;
     } catch (error) {
       throw error.message;
     }

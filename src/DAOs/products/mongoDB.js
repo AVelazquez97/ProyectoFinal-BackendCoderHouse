@@ -52,6 +52,28 @@ class ProductsDAOMongoDB extends MongoDBContainer {
     }
   };
 
+  searchByFilter = async (filters) => {
+    try {
+      const products = await this.collectionName.find({
+        $or: [
+          { name: { $regex: '.*' + filters.name + '.*', $options: 'i' } },
+          { code: filters.code },
+          { price: { $gte: filters.minPrice, $lte: filters.maxPrice } },
+          { stock: { $gte: filters.minStock, $lte: filters.maxStock } },
+        ],
+      });
+      
+      if (products.length < 1) {
+        throw new Error(
+          'Error al buscar: no hay productos que coincidan con los filtros.'
+        );
+      }
+      return products;
+    } catch (error) {
+      throw error.message;
+    }
+  };
+
   updateProduct = async ({ id }, productData) => {
     try {
       const productUpdated = await this.collectionName.findByIdAndUpdate(

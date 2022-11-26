@@ -1,6 +1,6 @@
-import DAOFactory from '../DAOs/DAOFactory.js';
-import { PERSISTENCY } from '../config/index.js';
-import { LoggerError } from '../config/log4.js';
+import DAOFactory from '../../DAOs/DAOFactory.js';
+import { PERSISTENCY } from '../../config/index.js';
+import { LoggerError } from '../../config/log4.js';
 
 let cartDAO;
 (async () => {
@@ -16,8 +16,8 @@ let cartDAO;
 const cartsController = {
   createCart: async (req, res, next) => {
     try {
-      const msg = await cartDAO.createCart({});
-      res.status(200).json(msg);
+      const id = await cartDAO.createCart();
+      res.status(200).json({id});
     } catch (error) {
       next(error);
     }
