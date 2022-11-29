@@ -11,7 +11,7 @@ const transporter = createTransport({
   },
 });
 
-const sendMailByNewSignup = async (newUser) => {
+const sendNewSignupMail = async (newUser) => {
   try {
     const success = await transporter.sendMail({
       from: 'NodeServer Admin',
@@ -31,14 +31,14 @@ const sendMailByNewSignup = async (newUser) => {
   }
 };
 
-const sendMailByNewOrder = async (newOrder) => {
+const sendOrderMail = async (newOrder) => {
   const template = newOrder.products
     .map(
       (product) => `
         <tr><td><img src="${product.thumbnail}" width="40px"></td>
         <td>${product.code}</td>
         <td>${product.name}</td>
-        <td>${product.qty}</td>
+        <td>${product.quantity}</td>
         <td>${product.price}</td></tr>
       `
     )
@@ -47,7 +47,7 @@ const sendMailByNewOrder = async (newOrder) => {
     const success = await transporter.sendMail({
       from: 'NodeServer Admin',
       to: CREDENTIALS_TO_SEND_MAIL.adminServer,
-      subject: 'Nuevo registro de usuario',
+      subject: `Nuevo pedido de ${newOrder.clientEmail}`,
       html: `
         <div>
           <h4>Productos:</h4>
@@ -69,8 +69,8 @@ const sendMailByNewOrder = async (newOrder) => {
           <h4>Datos de la orden:</h4>
           <ul>
             <li>Fecha y hora: ${newOrder.timestamp}</li>
-            <li>Email: ${newOrder.email}</li>
-            <li>Dirección de entrega: ${newOrder.address}</li>
+            <li>Email: ${newOrder.clientEmail}</li>
+            <li>Dirección de entrega: ${newOrder.clientAddress}</li>
           </ul>
         </div>`,
     });
@@ -80,4 +80,4 @@ const sendMailByNewOrder = async (newOrder) => {
   }
 };
 
-export { sendMailByNewSignup, sendMailByNewOrder };
+export { sendNewSignupMail, sendOrderMail };

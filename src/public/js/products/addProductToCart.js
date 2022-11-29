@@ -1,29 +1,30 @@
 const createCart = async () => {
   try {
-    const response = await fetch('/api/carrito', {
+    const clientId = await getUserId();
+    const response = await fetch(`api/carrito/${clientId}`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
-      body: JSON.stringify({}),
+      body: null,
     });
     const data = await response.json();
-    if (Object.keys(data)[0] != 'error') {
-      alert(data.msg); //debería retornar el id del carrito creado
-    } else {
-      alert(data.error);
+    if (Object.keys(data)[0] === 'error') {
+      return data.error;
     }
+
+    return data.id;
   } catch (error) {
     console.log(error);
   }
 };
 
-
-
-const addToCart = async (idProduct) => {
+const addToCart = async (productId) => {
   try {
+    const cartId = await createCart();
+
     const response = await fetch(
-      `/api/carrito/${idCart}/productos/${idProduct}`,
+      `/api/carrito/${cartId}/productos/${productId}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -33,10 +34,10 @@ const addToCart = async (idProduct) => {
       }
     );
     const data = await response.json();
-    if (Object.keys(data)[0] != 'error') {
+    if (Object.keys(data)[0] !== 'error') {
       alert(data.msg);
     } else {
-      alert(data.error);
+      alert(`${data.error} ${data.description}`);
     }
   } catch (error) {
     console.log(error);

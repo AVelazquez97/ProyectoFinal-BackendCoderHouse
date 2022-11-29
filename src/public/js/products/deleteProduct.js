@@ -4,7 +4,7 @@ const deleteProduct = async (id) => {
       method: 'delete',
     });
     const data = await response.json();
-    if (Object.keys(data)[0] != 'error') {
+    if (Object.keys(data)[0] !== 'error') {
       await viewProducts();
     } else {
       alert(`${data.error} ${data.description}`);

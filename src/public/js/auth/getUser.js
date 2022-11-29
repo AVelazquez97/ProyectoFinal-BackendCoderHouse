@@ -1,7 +1,7 @@
 (async () => {
   try {
     let template = '';
-    const response = await fetch('/api/user');
+    const response = await fetch('/api/usuario');
     const data = await response.json();
     if (Object.keys(data)[0] !== 'error') {
       let fotoUrl =
@@ -51,3 +51,18 @@
     console.log(error);
   }
 })();
+
+const getUserId = async () => {
+  try {
+    const response = await fetch('/api/usuario');
+    const user = await response.json();
+
+    if (Object.keys(user)[0] !== 'error') {
+      return user.id; 
+    } else {
+      throw new Error(`Error: ${user.error} - Description: ${user.description}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
