@@ -4,7 +4,7 @@ import { signupReqValidation } from '../../middlewares/auth/requestValidator.mid
 import signupValidator from '../../middlewares/auth/signupValidator.middleware.js';
 import passport from '../../middlewares/passport/passport-local.middleware.js';
 import deleteFile from '../../utils/deleteFile.js';
-import { sendMailByNewSignup } from '../../utils/sendMail.js';
+import { sendNewSignupMail } from '../../utils/sendMail.js';
 
 const router = Router();
 
@@ -20,7 +20,7 @@ router.post(
       { passReqToCallBack: true },
       (error, data) => {
         if (data) {
-          sendMailByNewSignup(data);
+          sendNewSignupMail(data);
           return res
             .status(200)
             .json({ success: 'Se ha registrado correctamente al usuario.' });

@@ -8,11 +8,7 @@ const formEditProduct = document.querySelector('#form-edit-product'),
 
 const editProduct = async (id) => {
   try {
-    let response = await fetch(`/api/productos/listado/${id}`, {
-      // headers: {
-      //   Authorization: localStorage.getItem('token'),
-      // },
-    });
+    let response = await fetch(`/api/productos/listado/${id}`);
     let data = await response.json();
 
     inputEditName.setAttribute('value', `${data.name}`);

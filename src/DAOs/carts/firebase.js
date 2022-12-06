@@ -24,11 +24,6 @@ class CartsDAOFirebase extends FirebaseContainer {
     }
   };
 
-  #compareStockAndQty = (stock, quantity) => {
-    //Se busca evaluar que la cantidad del producto a insertar al carrito sea menor o igual al stock del mismo.
-    return quantity > stock ? stock : quantity;
-  };
-
   #findCartBy = async (document) => {
     try {
       let cart = await document.get();
@@ -103,7 +98,6 @@ class CartsDAOFirebase extends FirebaseContainer {
         );
       }
 
-      const qty = this.#compareStockAndQty(productDetail.stock, quantity);
       const productToInsert = {
         id: idProd,
         timestamp: new Date(),
@@ -112,7 +106,7 @@ class CartsDAOFirebase extends FirebaseContainer {
         code: productDetail.code,
         thumbnail: productDetail.thumbnail,
         price: productDetail.price,
-        qty,
+        quantity,
       };
       await document.update({
         products: [...cart.products, productToInsert],

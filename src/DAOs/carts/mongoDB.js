@@ -21,16 +21,13 @@ class CartsDAOMongoDB extends MongoDBContainer {
 
   #getProduct = async (idProd) => {
     try {
-      const product = await this.products.getById(idProd);
+      const product = await this.products.getById(
+        mongoose.Types.ObjectId(idProd)
+      );
       return product;
     } catch (error) {
       return [];
     }
-  };
-
-  #compareStockAndQty = (stock, quantity) => {
-    //Se busca evaluar que la cantidad del producto a insertar al carrito sea menor o igual al stock del mismo.
-    return quantity > stock ? stock : quantity;
   };
 
   #findCartById = async (id) => {
@@ -42,12 +39,43 @@ class CartsDAOMongoDB extends MongoDBContainer {
     }
   };
 
-  createCart = async (_) => {
+  findCartByClientId = async (clientId) => {
     try {
-      const cart = await this.collectionName.create({
-        timestamp: new Date(),
-        products: [],
+      const cart = this.collectionName.findOne({
+        clientId: { _id: mongoose.Types.ObjectId(clientId) },
       });
+
+      return cart;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  #updateProductToCart = async (cart, prodId, quantity) => {
+    let product = cart.products.find(
+      (product) =>
+        product._id.toString() === mongoose.Types.ObjectId(prodId).toString()
+    );
+    if (product) {
+      product.quantity += quantity;
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  createCart = async (clientId) => {
+    try {
+      /*Si el cliente ya tiene un carrito se devuelve el id del mismo. En caso contrario se crea un nuevo carrito*/
+      let cart = await this.findCartByClientId(clientId);
+      if (!cart) {
+        cart = await this.collectionName.create({
+          timestamp: new Date(),
+          products: [],
+          clientId,
+        });
+      }
+
       return cart.id;
     } catch (error) {
       throw error.message;
@@ -57,9 +85,9 @@ class CartsDAOMongoDB extends MongoDBContainer {
   deleteById = async (id) => {
     try {
       const cartDeleted = await this.collectionName.findByIdAndRemove(
-        { _id: id },
+        { _id: mongoose.Types.ObjectId(id)},
         { rawResult: true }
-      );
+        );
       if (!cartDeleted.value) {
         throw new Error(
           'Error al borrar: no existe un carrito con el id indicado.'
@@ -71,20 +99,15 @@ class CartsDAOMongoDB extends MongoDBContainer {
     }
   };
 
-  getProductsFromCartById = async (id) => {
+  getProducts = async (clientId) => {
     try {
-      const cart = await this.#findCartById(id);
+      const cart = await this.findCartByClientId(clientId);
       if (!cart) {
         throw new Error(
           'Error al listar: no existe un carrito con el id indicado.'
         );
       }
-
-      const productsFromCart = await this.collectionName.findOne(
-        { _id: id },
-        { _id: 1, products: 1 }
-      );
-
+      const productsFromCart = cart.products;
       if (!productsFromCart) {
         throw new Error(
           'Error al listar: el carrito seleccionado no tiene productos.'
@@ -112,19 +135,20 @@ class CartsDAOMongoDB extends MongoDBContainer {
         );
       }
 
-      const qty = this.#compareStockAndQty(productDetail.stock, quantity);
-      const productToInsert = {
-        _id: mongoose.Types.ObjectId(productDetail.id),
-        timestamp: productDetail.timestamp,
-        name: productDetail.name,
-        description: productDetail.description,
-        code: productDetail.code,
-        thumbnail: productDetail.thumbnail,
-        price: productDetail.price,
-        qty,
-      };
+      const isUpdated = await this.#updateProductToCart(cart, idProd, quantity);
+      if (!isUpdated) {
+        cart.products.push({
+          _id: mongoose.Types.ObjectId(productDetail.id),
+          timestamp: productDetail.timestamp,
+          name: productDetail.name,
+          description: productDetail.description,
+          code: productDetail.code,
+          thumbnail: productDetail.thumbnail,
+          price: productDetail.price,
+          quantity,
+        });
+      }
 
-      cart.products.push(productToInsert);
       await this.collectionName.findByIdAndUpdate({ _id: idCart }, cart, {
         new: true,
       });
@@ -135,9 +159,9 @@ class CartsDAOMongoDB extends MongoDBContainer {
     }
   };
 
-  deleteProduct = async (idCart, idProd) => {
+  deleteProduct = async (clientId, idProd) => {
     try {
-      let cart = await this.#findCartById(idCart);
+      const cart = await this.findCartByClientId(clientId);
       if (cart.length < 1) {
         throw new Error(
           'Error al borrar: no existe un carrito con el id indicado.'
@@ -146,7 +170,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
 
       const productDeleted = await this.collectionName.updateOne(
         {
-          _id: mongoose.Types.ObjectId(idCart),
+          _id: mongoose.Types.ObjectId(cart.id),
         },
         {
           $pull: {

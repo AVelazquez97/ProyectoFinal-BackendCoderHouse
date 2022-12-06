@@ -50,32 +50,37 @@ footer {
 }
 
 #label-insert-photo {
-  padding-top: 10%;
+  padding-top: 6%;
 }
 
 /* ------------------------------ Tables styles ----------------------------- */
-table{
-  /* background-color: rgb(213, 28, 28); */
+table {
+  background-color: #f8f9fa;
   border-collapse: collapse;
   width: 100%;
   border-radius: 4px;
 }
 
 /*Selector que provee la opción de colorear una fila de por medio en una tabla*/
-tr:nth-child(even){ /*El parámetro puede ser odd también*/
-  background-color: rgb(170, 170, 170);
+tr:nth-child(even) {
+  /*El parámetro puede ser odd también*/
+  background-color: #aaaaaa;
 }
 
-table thead th{
+table thead th {
   color: #dddddd;
   text-align: center;
   border: solid 1px #dddddd;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 10px;
 }
 
-table tbody td{
+table tbody td {
   text-align: center;
   border: solid 1px #dddddd;
   padding: 8px;
+}
+
+.align-left {
+  text-align: left;
 }

@@ -1,12 +1,13 @@
-const deleteOrder = async (id) => {
+const newOrder = async () => {
   try {
-    const response = await fetch(`/api/ordenes/${id}`, {
-      method: 'delete',
+    const response = await fetch('/api/ordenes/', {
+      method: 'POST',
+      body: null
     });
     const data = await response.json();
     if (Object.keys(data)[0] !== 'error') {
       alert(data.success);
-      viewOrders();
+      viewCartProducts();
     } else {
       alert(data.error);
     }

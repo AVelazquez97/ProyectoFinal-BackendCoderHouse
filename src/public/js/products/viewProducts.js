@@ -1,7 +1,7 @@
 const productList = document.querySelector('#product-list');
 
 const renderProducts = (data) => {
-  if (Object.keys(data)[0] != 'error') {
+  if (Object.keys(data)[0] !== 'error') {
     const template = data
       .map(
         (product) => `

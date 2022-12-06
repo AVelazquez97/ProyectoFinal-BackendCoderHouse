@@ -1,8 +1,8 @@
 import DAOFactory from '../../DAOs/DAOFactory.js';
 import { PERSISTENCY } from '../../config/index.js';
 import { LoggerError } from '../../config/log4.js';
-import cartsController from './cart.controller.js';
-// import { sendMailOrder } from '../../utils/sendMail.js';
+import { sendOrderMail } from '../../utils/sendMail.js';
+import sendOrderWpp from '../../utils/sendWPP.js'
 
 let orderDAO;
 
@@ -19,60 +19,52 @@ let orderDAO;
 const ordersController = {
   getAllOrders: async (req, res, next) => {
     try {
-      let ordenes = await ordersController.list({ email: req.user.email });
-      res.json(ordenes);
+      let orders = await orderDAO.getAll(req.user.email);
+      res.status(200).json(orders);
     } catch (error) {
       next(error);
     }
   },
   getOrderById: async (req, res, next) => {
     try {
-      let orden = await ordersController.listId(req.params.id);
-      res.json(orden);
+      let order = await orderDAO.getOrderById(req.params.id);
+      res.status(200).json(order);
     } catch (error) {
       next(error);
     }
   },
   createOrder: async (req, res, next) => {
     try {
-      let cliente = {
+      const client = {
         id: req.user.id,
         email: req.user.email,
-        direccion: req.user.direccion,
+        address: req.user.address,
       };
-      // const clientCartItems = await cartsController.getAllProductsFromCartById
-      const itemsClientCart = await shoppingCartController.list(req.user.id);
-      if (itemsClientCart.length) {
-        let data = await ordersController.save(cliente, itemsClientCart);
-        if (data) {
-          return res.json({ success: 'Orden generada con exito' });
-        }
-        throw new Error('Error al guardar orden');
-      } else {
-        res.json({
-          error: 'Antes de generar un pedido debe agregar productos al carrito',
-        });
-      }
+
+      const data = await orderDAO.create(client);
+      res.status(200).json(data);
     } catch (error) {
-      res.json({ error: 'La orden no pudo ser generada' });
-    }
-  },
-  updateOrderById: async (req, res, next) => {
-    try {
-      res.json(await ordersController.update(req.params.id, req.body));
-    } catch (error) {
-      res.json({ error: 'La orden no pudo ser actualizada' });
+      next(error);
     }
   },
   confirmOrder: async (req, res, next) => {
     try {
-      let confirmedOrder = await ordersController.update(req.params.id, {
-        estado: 'enviada',
+      const confirmedOrder = await orderDAO.confirm(req.params.id, {
+        status: 'Enviada',
       });
-      sendMailOrder(confirmedOrder);
-      res.json(confirmedOrder);
+      sendOrderMail(confirmedOrder);
+      sendOrderWpp(confirmedOrder);
+      res.status(200).json(confirmedOrder);
     } catch (error) {
-      res.json({ error: 'La orden no pudo ser confirmada' });
+      next(error);
+    }
+  },
+  deleteOrderById: async (req, res, next) => {
+    try {
+      let order = await orderDAO.deleteById(req.params.id);
+      res.status(200).json(order);
+    } catch (error) {
+      next(error);
     }
   },
 };

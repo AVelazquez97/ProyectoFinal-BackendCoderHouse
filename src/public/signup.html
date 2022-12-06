@@ -54,114 +54,112 @@
     </nav>
     <!-- ----------------------- Fin barra de navegación ----------------------- -->
     <main>
-      <div class="container">
-        <div class="jumbotron">
-          <h1>Registro de usuario</h1>
-          <hr />
-          <form
-            id="signup-form"
-            class="row g-3 needs-validation"
-            novalidate
-          >
-            <!-- -------------------------- Ingreso del email -------------------------- -->
-            <div class="col-md-4">
-              <label for="input-email" class="form-label">Email</label>
-              <div class="input-group">
-                <span class="input-group-text" id="inputGroupFusion">@</span>
-                <input
-                  type="email"
-                  id="input-email"
-                  class="form-control"
-                  name="email"
-                  aria-describedby="inputGroupFusion"
-                  placeholder="john-doe@example.com"
-                  required
-                />
-              </div>
-            </div>
-            <!-- --------------------- Ingreso del nombre completo --------------------- -->
-            <div class="col-md-4">
-              <label for="input-full-name" class="form-label"
-                >Nombre completo</label
-              >
+      <div class="container py-5 min-vh-70">
+        <h1>Registro de usuario</h1>
+        <hr />
+        <form
+          id="signup-form"
+          class="row g-3 needs-validation"
+          novalidate
+        >
+          <!-- -------------------------- Ingreso del email -------------------------- -->
+          <div class="col-md-4">
+            <label for="input-email" class="form-label">Email</label>
+            <div class="input-group">
+              <span class="input-group-text" id="inputGroupFusion">@</span>
               <input
-                type="text"
-                id="input-full-name"
+                type="email"
+                id="input-email"
                 class="form-control"
-                name="fullName"
-                placeholder="John Doe"
+                name="email"
+                aria-describedby="inputGroupFusion"
+                placeholder="john-doe@example.com"
                 required
               />
             </div>
-            <!-- ------------------------- Ingreso de la edad -------------------------- -->
-            <div class="col-md-4">
-              <label for="input-age" class="form-label">Edad</label>
-              <input
-                type="number"
-                id="input-age"
-                class="form-control"
-                name="age"
-                placeholder="La edad debe ser mayor a 15"
-                required
-              />
-            </div>
-            <!-- ---------------------- Ingreso de la contraseña ----------------------- -->
-            <div class="col-md-8">
-              <label for="input-password" class="form-label">Contraseña</label>
-              <input
-                type="password"
-                id="input-password"
-                class="form-control"
-                name="password"
-                placeholder="Ingrese una contraseña alternando caractéres"
-                required
-              />
-            </div>
-            <!-- ------------------------ Ingreso del telefono ------------------------- -->
-            <div class="col-md-4">
-              <label for="input-telephone" class="form-label">Teléfono</label>
-              <input
-                type="text"
-                id="input-telephone"
-                class="form-control"
-                name="phone"
-                placeholder="+598123456789"
-                required
-              />
-            </div>
-            <!-- ----------------------- Ingreso de la dirección ----------------------- -->
-            <div class="col-md-12">
-              <label for="input-address" class="form-label">Dirección</label>
-              <input
-                type="text"
-                id="input-address"
-                class="form-control"
-                name="address"
-                placeholder="Calle Juan Pérez N°10"
-                required
-              />
-            </div>
-            <!-- -------------------- Ingreso de la foto de perfil --------------------- -->
-            <div class="col-md-7">
-              <label id="label-insert-photo" for="input-photo" class="form-label">Foto</label>
-              <br/>
-              <input type="file" id="input-photo" name="photo" accept="image/*" />
-            </div>
-            <!-- ------------------ Vista previa de la foto de perfil ------------------ -->
-            <div class="col-md-5 text-center">
-              <label for="image-preview" class="form-label">Vista previa foto</label>
-              <br/>
-              <img id="image-preview" width="150" height="150" class="rounded-circle">
-            </div>
-            <!-- --------- Botones para crear cuenta o ir al inicio de sesión ---------- -->
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-dark me-2">Crear nueva cuenta</button>
-              <a href="login.html" type="button" class="btn btn-warning">
-                Iniciar sesión</a
-              >
-            </div>
-          </form>
-        </div>
+          </div>
+          <!-- --------------------- Ingreso del nombre completo --------------------- -->
+          <div class="col-md-4">
+            <label for="input-full-name" class="form-label"
+              >Nombre completo</label
+            >
+            <input
+              type="text"
+              id="input-full-name"
+              class="form-control"
+              name="fullName"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+          <!-- ------------------------- Ingreso de la edad -------------------------- -->
+          <div class="col-md-4">
+            <label for="input-age" class="form-label">Edad</label>
+            <input
+              type="number"
+              id="input-age"
+              class="form-control"
+              name="age"
+              placeholder="La edad debe ser mayor a 15"
+              required
+            />
+          </div>
+          <!-- ---------------------- Ingreso de la contraseña ----------------------- -->
+          <div class="col-md-8">
+            <label for="input-password" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              id="input-password"
+              class="form-control"
+              name="password"
+              placeholder="Ingrese una contraseña alternando caractéres"
+              required
+            />
+          </div>
+          <!-- ------------------------ Ingreso del telefono ------------------------- -->
+          <div class="col-md-4">
+            <label for="input-telephone" class="form-label">Teléfono</label>
+            <input
+              type="text"
+              id="input-telephone"
+              class="form-control"
+              name="phone"
+              placeholder="+598123456789"
+              required
+            />
+          </div>
+          <!-- ----------------------- Ingreso de la dirección ----------------------- -->
+          <div class="col-md-12">
+            <label for="input-address" class="form-label">Dirección</label>
+            <input
+              type="text"
+              id="input-address"
+              class="form-control"
+              name="address"
+              placeholder="Calle Juan Pérez N°10"
+              required
+            />
+          </div>
+          <!-- -------------------- Ingreso de la foto de perfil --------------------- -->
+          <div class="col-md-7">
+            <label id="label-insert-photo" for="input-photo" class="form-label">Foto</label>
+            <br/>
+            <input type="file" id="input-photo" name="photo" accept="image/*" />
+          </div>
+          <!-- ------------------ Vista previa de la foto de perfil ------------------ -->
+          <div class="col-md-5 text-center">
+            <label for="image-preview" class="form-label">Vista previa foto</label>
+            <br/>
+            <img id="image-preview" width="150" height="150" class="rounded-circle">
+          </div>
+          <!-- --------- Botones para crear cuenta o ir al inicio de sesión ---------- -->
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-dark me-2">Crear nueva cuenta</button>
+            <a href="login.html" type="button" class="btn btn-warning">
+              Iniciar sesión</a
+            >
+          </div>
+        </form>
       </div>
     </main>
     <!-- ------------------------- Comienzo footer ------------------------- -->

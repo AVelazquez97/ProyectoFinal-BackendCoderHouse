@@ -9,7 +9,7 @@ const router = Router();
 
 // Se agrupan todas las rutas de la api
 router.use('/productos', productRouter);
-router.use('/', userRouter);
+router.use('/usuario', authenticationMiddleware, userRouter);
 router.use('/carrito', authenticationMiddleware, cartRouter);
 router.use('/ordenes', authenticationMiddleware, orderRouter);
 

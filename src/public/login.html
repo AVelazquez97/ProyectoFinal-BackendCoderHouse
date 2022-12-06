@@ -48,60 +48,57 @@
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="chat.html">Chat</a>
             </li>
-          </ul>
         </div>
       </div>
     </nav>
     <!-- ----------------------- Fin barra de navegación ----------------------- -->
     <main>
-      <div class="container">
-        <div class="jumbotron">
-          <h1>Inicio de sesión</h1>
-          <hr />
-          <form
-            id="login-form"
-            class="row g-3 needs-validation"
-            novalidate
-          >
-            <!-- --------------------------- Campo de email ---------------------------- -->
-            <div class="form-group">
-              <label for="inputEmail" class="form-label">Email</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text" id="inputGroupFusion">@</span>
-                <input
-                  id="inputEmail"
-                  class="form-control"
-                  type="email"
-                  name="email"
-                  aria-describedby="inputGroupFusion"
-                  placeholder="john-doe@example.com"
-                  required
-                />
-              </div>
+      <div class="container py-5 min-vh-70">
+        <h1>Inicio de sesión</h1>
+        <hr />
+        <form
+          id="login-form"
+          class="row g-3 needs-validation"
+          novalidate
+        >
+          <!-- --------------------------- Campo de email ---------------------------- -->
+          <div class="form-group">
+            <label for="inputEmail" class="form-label">Email</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupFusion">@</span>
+              <input
+                id="inputEmail"
+                class="form-control"
+                type="email"
+                name="email"
+                aria-describedby="inputGroupFusion"
+                placeholder="john-doe@example.com"
+                required
+              />
             </div>
-            <!-- ------------------------- Campo de contraseña ------------------------- -->
-            <div class="form-group">
-              <label for="inputPassword" class="form-label">Contraseña</label>
-              <div class="input-group has-validation">
-                <input
-                  id="inputPassword"
-                  class="form-control"
-                  type="password"
-                  name="password"
-                  placeholder="Ingrese una contraseña"
-                  required
-                />
-              </div>
+          </div>
+          <!-- ------------------------- Campo de contraseña ------------------------- -->
+          <div class="form-group">
+            <label for="inputPassword" class="form-label">Contraseña</label>
+            <div class="input-group has-validation">
+              <input
+                id="inputPassword"
+                class="form-control"
+                type="password"
+                name="password"
+                placeholder="Ingrese una contraseña"
+                required
+              />
             </div>
-            <!-- ------- Botones para iniciar sesión o ir al registro de usuario ------- -->
-            <div class="col-md-12">
-              <button type="submit" class="btn btn-dark me-2">Iniciar sesión</button>
-              <a href="signup.html" type="button" class="btn btn-warning">
-                Crear nueva cuenta
-              </a>
-            </div>
-          </form>
-        </div>
+          </div>
+          <!-- ------- Botones para iniciar sesión o ir al registro de usuario ------- -->
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-dark me-2">Iniciar sesión</button>
+            <a href="signup.html" type="button" class="btn btn-warning">
+              Crear nueva cuenta
+            </a>
+          </div>
+        </form>
       </div>
     </main>
     <!-- ------------------------- Comienzo footer ------------------------- -->

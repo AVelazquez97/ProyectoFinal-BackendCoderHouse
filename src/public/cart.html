@@ -69,19 +69,34 @@
     </nav>
     <!-- ----------------------- Fin barra de navegación ----------------------- -->
 
+    <!-- ------------------- Listado de productos en carrito ------------------- -->
     <main>
-      <div class="container py-5 min-vh-100">
+      <div class="container py-5 min-vh-70">
         <h1>Carrito de compras</h1>
-
-
-        <!-- ------------------------ Listado de productos ------------------------- -->
-        <div
-          id="cart-list"
-          class="row row-cols-1 row-cols-md-3 g-4 mb-4"
-        ></div>
-        <!-- ---------------------- Fin listado de productos ----------------------- -->
+        <div class="table-responsive-lg">
+          <table class="table align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Foto de Producto</th>
+                <th>Nombre de Producto</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cart-list"></tbody>
+          </table>
+        </div>
+  
+        <div class="container">
+          <button class="btn btn-success float-right" onclick="newOrder()">
+            Generar orden de compra
+          </button>
+        </div>
       </div>
     </main>
+    <!-- --------------- Fin de listado de productos en carrito ---------------- -->
 
     <!-- ------------------------- Comienzo footer ------------------------- -->
     <footer class="footer mt-auto py-3 bg-light">
@@ -111,5 +126,14 @@
 
     <!-- JS Logout -->
     <script src="./js/auth/logout.js"></script>
+    
+    <!-- JS Vista de productos de un carrito -->
+    <script src="./js/carts/viewProductsOfCart.js"></script>
+
+    <!-- JS Eliminado de carrito -->
+    <script src="./js/carts/deleteProductOfCart.js"></script>
+
+    <!-- JS Eliminado de orden -->
+    <script src="./js/orders/newOrder.js"></script>  
   </body>
 </html>

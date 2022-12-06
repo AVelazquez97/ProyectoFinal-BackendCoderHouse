@@ -2,3 +2,4 @@
 - Se implementó DAOFactory con import dínamico para seleccionar la persistencia de preferencia. ('fileSystem', 'mongoDB', 'firebase') 
 - Se refactorizaron los controllers de api para que sean más eficientes.
 - Se añadió registro e inicio de sesión con passport y estrategia local.
+- Se añadió capa de frontend en espacio público que interactúa con el backend mediante las apis
