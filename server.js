@@ -5,6 +5,7 @@ import { LoggerInfo, LoggerError } from './src/config/log4.js';
 import app from './src/app.js';
 
 /* ----------------------------- server settings ---------------------------- */
+LoggerInfo.info(`MODO CLUSTER: ${CLUSTER_MODE}`);
 if (CLUSTER_MODE && cluster.isPrimary) {
   const numCPUs = cpus().length;
   LoggerInfo.info(`PID MASTER ${process.pid}`);
@@ -26,7 +27,6 @@ if (CLUSTER_MODE && cluster.isPrimary) {
     LoggerInfo.info(`NODE_ENV: ${process.env.NODE_ENV}`);
     LoggerInfo.info(`PERSISTENCIA: ${PERSISTENCY}`);
     LoggerInfo.info('MODO ADMINISTRADOR: ', ADMIN_MODE);
-    LoggerInfo.info(`MODO CLUSTER: ${CLUSTER_MODE}`);
     LoggerInfo.info(`PID WORKER: ${process.pid}`);
   });
 

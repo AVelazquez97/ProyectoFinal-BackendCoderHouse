@@ -25,7 +25,7 @@ const errorHandler = (error, req, res, next) => {
   ];
   if (notFoundedErrors.includes(error)) {
     res.status(404);
-    LoggerError.warn(error);
+    LoggerWarn.warn(error);
   } else {
     res.status(500);
     LoggerError.error(error);
