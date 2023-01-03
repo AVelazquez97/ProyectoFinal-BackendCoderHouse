@@ -1,0 +1,14 @@
+{{#if messages.length}}
+  <div class='table-responsive'>
+    {{#each messages}}
+      <div>
+        <b id="msg-type">{{this.msgType}} - </b>
+        <b id="author-name">{{this.email}}</b>
+        <span id="msg-date">[{{format-date this.fyh}}]</span>:
+        <i>{{this.msg}}</i>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <h3 class='alert alert-warning mt-2'>{{messages.error}}</h3>
+{{/if}}

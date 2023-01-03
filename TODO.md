@@ -1,8 +1,13 @@
 # Opcional: 
++ Implementar capa de persistencia gestionada con MySQL
+
++ Utilizar swal en front en vez de alert
+
++ Desplegar en la nube
+
 + Refactorizar el código de las funciones y/o métodos que tengan demasiado complejidad
 
 + Desarrollar páginado de productos para mejorar rendimiento
 
-+ Implementar capa de persistencia gestionada con MySQL
 
-+ Desplegar en la nube
+

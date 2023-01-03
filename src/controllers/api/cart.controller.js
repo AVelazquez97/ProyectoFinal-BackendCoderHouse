@@ -1,4 +1,4 @@
-import DAOFactory from '../../DAOs/DAOFactory.js';
+import DAOFactory from '../../persistency/DAO/DAOFactory.js';
 import { PERSISTENCY } from '../../config/index.js';
 import { LoggerError } from '../../config/log4.js';
 

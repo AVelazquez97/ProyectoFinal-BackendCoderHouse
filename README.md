@@ -34,7 +34,7 @@ Las funcionalidades principales son:
      - firebase
    - Para desarrollo:
      - fileSystem
-8. Canal de chat basado en websockets (próximamente)
+8. Canal de chat basado en websockets
 
 # 1. Puesta en marcha
 

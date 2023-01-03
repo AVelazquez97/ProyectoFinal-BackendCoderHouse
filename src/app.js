@@ -14,6 +14,7 @@ import passport from './middlewares/passport/passport-local.middleware.js';
 import homeRouter from './routes/home.routes.js';
 import apiRouter from './routes/api/index.routes.js';
 import authRouter from './routes/auth/index.routes.js';
+import chatRouter from './routes/chat.routes.js';
 
 const app = express();
 
@@ -21,7 +22,7 @@ const app = express();
 app.use(json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(COOKIES_SECRET));
-app.use(express.static(process.cwd() + '/src/public'));
+app.use(express.static(process.cwd() + '/public'));
 app.use(requestsLogger);
 
 /* -------------------------- template engine settings -------------------------- */
@@ -59,6 +60,7 @@ app.use(passport.session());
 app.use('/', homeRouter);
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
+app.use('/chat', chatRouter);
 
 app.use(errorHandler);
 app.use(badRequest); // Middleware que evalua si el endpoint visitado existe o no

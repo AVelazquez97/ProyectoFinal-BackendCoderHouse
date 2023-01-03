@@ -1,8 +1,11 @@
+import { Server as HttpServer } from 'http';
+import { Server as IoServer } from 'socket.io';
 import cluster from 'cluster';
 import { cpus } from 'os';
 import { CLUSTER_MODE, APP_PORT, ADMIN_MODE, PERSISTENCY } from './src/config/index.js';
 import { LoggerInfo, LoggerError } from './src/config/log4.js';
 import app from './src/app.js';
+import webSocket from './src/controllers/webSocket/index.socket.js';
 
 /* ----------------------------- server settings ---------------------------- */
 LoggerInfo.info(`MODO CLUSTER: ${CLUSTER_MODE}`);
@@ -22,7 +25,12 @@ if (CLUSTER_MODE && cluster.isPrimary) {
     cluster.fork();
   });
 } else {
-  const server = app.listen(APP_PORT, () => {
+  const serverHTTP = new HttpServer(app);
+  /* --------------------------- WebSocket settings --------------------------- */
+  const io = new IoServer(serverHTTP);
+  webSocket(io);
+
+  const server = serverHTTP.listen(APP_PORT, () => {
     LoggerInfo.info(`SERVIDOR HTTP ESCUCHANDO EN EL PUERTO: ${server.address().port}`);
     LoggerInfo.info(`NODE_ENV: ${process.env.NODE_ENV}`);
     LoggerInfo.info(`PERSISTENCIA: ${PERSISTENCY}`);

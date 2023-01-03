@@ -26,11 +26,12 @@ const errorHandler = (error, req, res, next) => {
   if (notFoundedErrors.includes(error)) {
     res.status(404);
     LoggerWarn.warn(error);
+    res.json({ error });
   } else {
     res.status(500);
     LoggerError.error(error);
+    res.render('error', { error });
   }
-  return res.json({ error });
 };
 
 export default errorHandler;
