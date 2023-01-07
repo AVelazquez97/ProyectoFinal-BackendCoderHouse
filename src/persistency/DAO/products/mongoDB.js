@@ -57,6 +57,7 @@ class ProductsDAOMongoDB extends MongoDBContainer {
       const products = await this.collectionName.find({
         $or: [
           { name: { $regex: '.*' + filters.name + '.*', $options: 'i' } },
+          { category: { $regex: '.*' + filters.category + '.*', $options: 'i' } },
           { code: filters.code },
           { price: { $gte: filters.minPrice, $lte: filters.maxPrice } },
           { stock: { $gte: filters.minStock, $lte: filters.maxStock } },

@@ -16,29 +16,36 @@ let messageDAO;
 
 export default async (io, socket) => {
   try {
-    /* ------------------------ carga inicial de mensajes ----------------------- */
-    socket.emit(
-      'view-messages',
-      normalizeMessages(await messageDAO.readMsgs())
-    );
+    socket.on('set-email', async (email) => {
+      try {
+        /* ------------------------ carga inicial de mensajes ----------------------- */
+        socket.emit(
+          'view-private-messages',
+          normalizeMessages(await messageDAO.readMsgsByEmail(email))
+        );
+      } catch (error) {
+        LoggerWarn.warn(error);
+        io.sockets.emit('view-private-messages', { error });
+      }
+    });
   } catch (error) {
     LoggerWarn.warn(error);
-    io.sockets.emit('view-messages', { error });
+    socket.emit('set-email-error', error.message);
   }
 
   /* ------------------------ actualizacion de mensajes ----------------------- */
-  socket.on('new-message', async (msg) => {
+  socket.on('new-private-message', async (msg, email) => {
     try {
       msg.fyh = new Date().toLocaleString();
       await messageDAO.insertMsg(msg);
 
       io.sockets.emit(
-        'view-messages',
-        normalizeMessages(await messageDAO.readMsgs())
+        'view-private-messages',
+        normalizeMessages(await messageDAO.readMsgsByEmail(email))
       );
     } catch (error) {
       LoggerWarn.warn(error);
-      io.sockets.emit('view-messages', { error });
+      io.sockets.emit('view-private-messages', { error });
     }
   });
 };

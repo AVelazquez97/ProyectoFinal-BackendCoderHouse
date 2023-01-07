@@ -1,0 +1,19 @@
+{
+  "name": "frontend-dependencies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "boxicons": "^2.1.4",
+    "handlebars": "^4.7.7",
+    "normalizr": "^3.6.1"
+  }
+}

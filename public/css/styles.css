@@ -36,6 +36,10 @@ footer {
   float: right;
 }
 
+.hidden-div {
+  display: none;
+}
+
 .medium-image {
   width: 150px;
   height: 150px;
@@ -95,4 +99,19 @@ table tbody td {
 
 .align-left {
   text-align: left;
+}
+
+.error-legend {
+  background-color: #212529;
+  color: #dddddd;
+  padding: 3px 6px;
+  margin-bottom: 0px;
+}
+
+.error-fieldset {
+  border: solid 1px;
+}
+
+.error-msg{
+  margin-bottom: 0px;
 }

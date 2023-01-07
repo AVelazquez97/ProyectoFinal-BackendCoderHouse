@@ -6,7 +6,7 @@ const signupValidator = (req, res, next) => {
     return next();
   }
   /*Parche ineficiente para borrar foto subida al servidor, en caso de que falle el registro*/
-  if(req.file) deleteFile(process.cwd() + `/src/public/img/${req.file.filename}`);
+  if(req.file) deleteFile(process.cwd() + `/public/img/${req.file.filename}`);
 
   return res.status(400).json({ errors: errors.array() });
 };

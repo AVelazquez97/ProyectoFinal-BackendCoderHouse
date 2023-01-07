@@ -11,7 +11,7 @@ class MongoDBConnection {
   }
 
   connect = async () => {
-    const connection = await mongoose.connect(MONGO_URL, {
+    const connection = mongoose.connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

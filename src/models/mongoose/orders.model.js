@@ -4,7 +4,7 @@ const ordersSchema = mongoose.Schema({
   clientEmail: { type: String, required: true },
   clientAddress: { type: String, required: true },
   status: { type: String, enum: ['Generada', 'Enviada'], default: 'Generada' },
-  timestamp: { type: Date, default: Date.now },
+  timestamp: { type: Date, default: Date.now, trim: true },
   products: [
     {
       name: String,

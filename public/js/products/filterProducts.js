@@ -1,6 +1,7 @@
 // mostrar u ocultar campos de busqueda
 const filterSelect = document.querySelector('#options-search');
 const searchByName = document.querySelector('#search-by-name'),
+  searchByCategory = document.querySelector('#search-by-category'),
   searchByCode = document.querySelector('#search-by-code'),
   searchByPrice = document.querySelector('#search-by-price'),
   searchByStock = document.querySelector('#search-by-stock'),
@@ -8,32 +9,45 @@ const searchByName = document.querySelector('#search-by-name'),
 
 filterSelect.addEventListener('change', () => {
   switch (filterSelect.value) {
-    case '1':
+    case '1': // Filtrado de productos por nombre
       searchByName.setAttribute('style', 'display: flex;');
+      searchByCategory.setAttribute('style', 'display: none;');
       searchByCode.setAttribute('style', 'display: none;');
       searchByPrice.setAttribute('style', 'display: none;');
       searchByStock.setAttribute('style', 'display: none;');
       formSearchBtns.setAttribute('style', 'display: block;');
       clearInputsSearchForm();
       break;
-    case '2':
+    case '2': // Filtrado de productos por categoría
       searchByName.setAttribute('style', 'display: none;');
+      searchByCategory.setAttribute('style', 'display: flex;');
+      searchByCode.setAttribute('style', 'display: none;');
+      searchByPrice.setAttribute('style', 'display: none;');
+      searchByStock.setAttribute('style', 'display: none;');
+      formSearchBtns.setAttribute('style', 'display: block;');
+      clearInputsSearchForm();
+      break;
+    case '3': // Filtrado de productos por código
+      searchByName.setAttribute('style', 'display: none;');
+      searchByCategory.setAttribute('style', 'display: none;');
       searchByCode.setAttribute('style', 'display: flex;');
       searchByPrice.setAttribute('style', 'display: none;');
       searchByStock.setAttribute('style', 'display: none;');
       formSearchBtns.setAttribute('style', 'display: block;');
       clearInputsSearchForm();
       break;
-    case '3':
+    case '4': // Filtrado de productos por precio
       searchByName.setAttribute('style', 'display: none;');
+      searchByCategory.setAttribute('style', 'display: none;');
       searchByCode.setAttribute('style', 'display: none;');
       searchByPrice.setAttribute('style', 'display: flex; gap: 5px;');
       searchByStock.setAttribute('style', 'display: none;');
       formSearchBtns.setAttribute('style', 'display: block;');
       clearInputsSearchForm();
       break;
-    case '4':
+    case '5': // Filtrado de productos por stock
       searchByName.setAttribute('style', 'display: none;');
+      searchByCategory.setAttribute('style', 'display: none;');
       searchByCode.setAttribute('style', 'display: none;');
       searchByPrice.setAttribute('style', 'display: none;');
       searchByStock.setAttribute('style', 'display: flex; gap: 5px;');
@@ -53,6 +67,7 @@ formSearch.onsubmit = async (e) => {
 
   const formSearchData = {
     name: formDataSearch.get('input-search-name'),
+    category: formDataSearch.get('input-search-category'),
     code: formDataSearch.get('input-search-code'),
     minPrice: formDataSearch.get('input-search-min-price'),
     maxPrice: formDataSearch.get('input-search-max-price'),
@@ -63,6 +78,7 @@ formSearch.onsubmit = async (e) => {
   try {
     url =
       `/api/productos/busqueda?name=${formSearchData.name}` +
+      `&category=${formSearchData.category}` +
       `&code=${formSearchData.code}` +
       `&minPrice=${formSearchData.minPrice}` +
       `&maxPrice=${formSearchData.maxPrice}` +
@@ -78,6 +94,7 @@ formSearch.onsubmit = async (e) => {
 
 const clearFilters = async () => {
   searchByName.setAttribute('style', 'display: none;');
+  searchByCategory.setAttribute('style', 'display: none;');
   searchByCode.setAttribute('style', 'display: none;');
   searchByPrice.setAttribute('style', 'display: none;');
   searchByStock.setAttribute('style', 'display: none;');
@@ -87,6 +104,7 @@ const clearFilters = async () => {
 
 const clearInputsSearchForm = () => {
   document.getElementById('input-search-name').value = '';
+  document.getElementById('input-search-category').value = '';
   document.getElementById('input-search-code').value = '';
   document.getElementById('input-search-min-price').value = '';
   document.getElementById('input-search-max-price').value = '';

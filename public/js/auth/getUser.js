@@ -24,7 +24,8 @@
           <li><small class="dropdown-item">${data.phone}</small></li>
           <li><small class="dropdown-item">${data.address}</small></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="orders.html">Mis ordenes</a></li>
+          <li><a class="dropdown-item" href="/orders.html">Mis ordenes</a></li>
+          <li><a class="dropdown-item" href="/chat/private">Chat personal</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="/" onclick="logout()">Cerrar sesión</a></li>
         </ul>

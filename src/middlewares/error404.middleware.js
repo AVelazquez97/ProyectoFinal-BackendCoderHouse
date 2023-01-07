@@ -3,6 +3,7 @@ const badRequest = (req, res, next) => {
     error: -2,
     description: `ruta ${req.originalUrl} método ${req.method} no implementada`,
   });
+  next();
 };
 
 export default badRequest;

@@ -1,6 +1,6 @@
 <head>
   <script src='/node_modules/normalizr/dist/normalizr.browser.min.js'></script>
-  <title>Chat - AVP e-commerce</title>
+  <title>Chat Personal - AVP e-commerce</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
             </a>
           </li>
           <li class='nav-item'>
-            <a class='nav-link' aria-current='page' href='cart.html'>
+            <a class='nav-link' aria-current='page' href='/cart.html'>
               Carrito
             </a>
           </li>
@@ -67,7 +67,8 @@
               type='email'
               name='email'
               aria-describedby='inputGroupFusion'
-              placeholder='john-doe@example.com'
+              value={{this.email}}
+              disabled
               required
             />
           </div>
@@ -75,11 +76,11 @@
 
         {{! Campo de selección de tipo de mensaje }}
         <div class='form-group col-md-6'>
-          <label for='message-type' class='form-label'>Tipo de mensaje</label>
+          <label for='select-message-type' class='form-label'>Tipo de mensaje</label>
           <select
-            id='message-type'
+            id='select-message-type'
             class='form-control'
-            name='message-type'
+            name='select-message-type'
             required
           >
             <option value=''>Elije una opción</option>
@@ -116,7 +117,7 @@
     </div>
   </section>
 
-  {{! Comienzo footer }}
+  {{! Comienzo footer  }}
   <footer class='footer mt-auto py-3 bg-light'>
     <div class='container text-center'>
       <span class='text-muted'>&copy;2022 Desarrollado por Alexis Velázquez</span>
@@ -137,7 +138,7 @@
   <script src='/socket.io/socket.io.js'></script>
 
   {{! JS chat client socket  }}
-  <script src='/js/chat/globalChat.js'></script>
+  <script src='/js/chat/privateChat.js'></script>
 
   {{! JS Obtener información de usuario  }}
   <script src='/js/auth/getUser.js'></script>

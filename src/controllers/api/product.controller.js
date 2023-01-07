@@ -36,6 +36,7 @@ const productsController = {
     const filters = req.query;
     /*Con las siguientes líneas se busca parsear todo los valores de la query para evitar errores*/
     filters.name.length === 0 ? (filters.name = null) : '';
+    filters.category.length === 0 ? (filters.category = null) : '';
     filters.minPrice.length === 0 ? (filters.minPrice = null) : filters.minPrice = parseFloat(filters.minPrice);
     filters.maxPrice.length === 0 ? (filters.maxPrice = null) : filters.maxPrice = parseFloat(filters.maxPrice);
     filters.minStock.length === 0 ? (filters.minStock = null) : filters.minStock = parseFloat(filters.minStock);
@@ -43,6 +44,7 @@ const productsController = {
     try {
       const products = await productDAO.searchByFilter(filters);
       res.status(200).json(products);
+      console.log(products);
     } catch (error) {
       next(error);
     }

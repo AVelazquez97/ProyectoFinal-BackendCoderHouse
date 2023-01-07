@@ -1,7 +1,6 @@
 import MongoDBContainer from '../../containers/mongoDBContainer.js';
 import messageModel from '../../../models/mongoose/messages.model.js';
 import MsgDTO from '../../DTO/msgDTO.js';
-import { LoggerError } from '../../../config/log4.js';
 
 let instanceMongoDB = null;
 class MessagesDAOMongoDB extends MongoDBContainer {
@@ -19,20 +18,15 @@ class MessagesDAOMongoDB extends MongoDBContainer {
 
   insertMsg = async (msgData) => {
     try {
-      const { email, msgType } = msgData.author;
-      const msg = msgData.msg;
-      const fyh = msgData.fyh;
-
       const data = {
-        email,
-        msgType,
-        msg,
-        fyh,
+        email: msgData.author.email,
+        msgType: msgData.author.msgType,
+        msg: msgData.msg,
+        fyh: msgData.fyh,
       };
       await this.collectionName.create(data);
       return { success: 'El mensaje fue añadido al sistema.' };
     } catch (error) {
-      LoggerError.error(error);
       throw error;
     }
   };
@@ -45,7 +39,18 @@ class MessagesDAOMongoDB extends MongoDBContainer {
       }
       return MsgDTO.toDTO(messages);
     } catch (error) {
-      LoggerError.error(error);
+      throw error;
+    }
+  };
+
+  readMsgsByEmail = async (email) => {
+    try {
+      const messages = await this.collectionName.find({ email });
+      if (!messages.length) {
+        throw 'No se encontraron mensajes en la base de datos.';
+      }
+      return MsgDTO.toDTO(messages);
+    } catch (error) {
       throw error;
     }
   };

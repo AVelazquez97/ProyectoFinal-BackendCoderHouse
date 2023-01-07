@@ -20,27 +20,28 @@ const schemaMessages = new normalizr.schema.Entity(
 
 /* ---------------------------- messages section ---------------------------- */
 const inputEmail = document.getElementById('input-email');
-const messageType = document.getElementById('message-type');
+const selectMessageType = document.getElementById('select-message-type');
 const inputMessage = document.getElementById('input-message');
 const btnSend = document.getElementById('btn-send');
 const addMessageForm = document.getElementById('add-message-form');
+
+socket.emit('set-email', inputEmail.value); // Se envía el mail del usuario que está autenticado en el sistema
 
 addMessageForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const message = {
     author: {
       email: inputEmail.value,
-      msgType: messageType.value,
+      msgType: selectMessageType.value,
     },
     msg: inputMessage.value,
   };
-  socket.emit('new-message', message);
+  socket.emit('new-private-message', message, inputEmail.value);
   addMessageForm.reset();
   inputMessage.focus();
-  inputEmail.value = '';
 });
 
-socket.on('view-messages', (messages) => {
+socket.on('view-private-messages', (messages) => {
   if (!messages.error) {
     const denormalizedMessages = normalizr.denormalize(
       messages.result,
@@ -58,22 +59,19 @@ socket.on('view-messages', (messages) => {
 });
 
 const makeHtmlList = async (messages) => {
-  const res = await fetch('templates/viewMessages.hbs');
+  const res = await fetch('/templates/viewMessages.hbs');
   let template = await res.text();
-  
+
   Handlebars.registerHelper('format-date', function (aString) {
-    return aString.replace("T", " ").replace("Z", "")
-  })
+    return aString.replace('T', ' ').replace('Z', '');
+  });
   template = Handlebars.compile(template);
   const html = template({ messages });
   return html;
 };
 
-inputEmail.addEventListener('input', () => {
-  const existEmail = inputEmail.value.length;
-  const existText = inputMessage.value.length;
-  inputMessage.disabled = !existEmail;
-  btnSend.disabled = !existEmail || !existText;
+selectMessageType.addEventListener('change', () => {
+  inputMessage.disabled = selectMessageType.value === '';
 });
 
 inputMessage.addEventListener('input', () => {
