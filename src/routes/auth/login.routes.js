@@ -17,10 +17,9 @@ router.post(
 );
 
 router.post('/', (req, res, next) => {
-  passport.authenticate('login', (_) => {
-    return res
-      .status(200)
-      .json({ success: 'Sesión iniciada de manera éxitosa.' });
+  passport.authenticate('login', (error, data) => {
+    if (data) return res.status(200).json({ success: 'Sesión iniciada de manera éxitosa.' });
+    if (error) return res.status(404).json(error);
   })(req, res, next);
 });
 export default router;

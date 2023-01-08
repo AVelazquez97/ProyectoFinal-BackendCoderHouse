@@ -1,21 +1,18 @@
-# Obligatorio:
-+ Implementar el back de filtrado de productos por categoría
-
-+ Validación de tipo de mensaje en form de chats desde back
++ Implementar capa de persistencia gestionada con MySQL 
 
 + Desplegar en la nube
 
-+ DTOS de carrito y ordenes
-
 # Opcional: 
-+ Implementar capa de persistencia gestionada con MySQL (npm i mysql)
++ Documentar API con swagger
 
 + Utilizar swal en front en vez de alert
 
++ Implementar estrategia de autenticación de passport para loguear con cuenta de google
+
 + Refactorizar el código de las funciones y/o métodos que tengan demasiado complejidad
 
-# No vale la pena:
 + Desarrollar páginado de productos para mejorar rendimiento
+
 
 
 

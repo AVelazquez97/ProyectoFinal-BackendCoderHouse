@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+const { Schema, model, Types } = mongoose;
 
-const cartsSchema = new mongoose.Schema({
+const cartsSchema = new Schema({
   timestamp: { type: Date, default: Date.now, trim: true },
   products: { type: Array, require: true, defaultValue: [] },
-  clientId: {type: mongoose.Types.ObjectId, require: true }
+  clientId: {type: Types.ObjectId, require: true }
 });
 
 cartsSchema.set('toJSON', {
@@ -14,4 +15,4 @@ cartsSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model('Carts', cartsSchema);
+export default model('Carts', cartsSchema);

@@ -1,26 +1,17 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
-const Schema = mongoose.Schema;
+const { Schema, model } = mongoose;
 
-const UsersSchema = new Schema({
+const usersSchema = new Schema({
   email: { type: String, required: true, lowercase: true, unique: true },
   fullName: { type: String, required: true },
-  age: { type: Number, required: false },
+  age: { type: Number, required: true },
   password: { type: String, required: true },
   phone: { type: String, required: true },
-  address: { type: String, required: false },
-  photo: { type: String },
+  address: { type: String, required: true },
+  photo: { type: String, required: false },
 });
 
-UsersSchema.methods.encryptPassword = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-};
-
-UsersSchema.methods.comparePassword = function (password) {
-  return bcrypt.compareSync(password, this.password);
-};
-
-UsersSchema.set('toJSON', {
+usersSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (doc, ret) {
@@ -28,4 +19,4 @@ UsersSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model('User', UsersSchema); 
+export default model('User', usersSchema);

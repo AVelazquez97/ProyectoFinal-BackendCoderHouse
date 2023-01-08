@@ -1,5 +1,6 @@
 const formAddProduct = document.querySelector('#form-add-product'),
   inputName = document.getElementById('name'),
+  inputCategory = document.getElementById('category'),
   inputDescription = document.getElementById('description'),
   inputCode = document.getElementById('code'),
   inputThumbnail = document.getElementById('thumbnail'),
@@ -11,6 +12,7 @@ formAddProduct.onsubmit = async (e) => {
 
   const formData = {
     name: inputName.value,
+    category: inputCategory.value,
     description: inputDescription.value,
     code: inputCode.value,
     thumbnail: inputThumbnail.value,
@@ -21,7 +23,7 @@ formAddProduct.onsubmit = async (e) => {
   try {
     const response = await fetch('api/productos/', {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify(formData),
@@ -29,12 +31,22 @@ formAddProduct.onsubmit = async (e) => {
 
     const data = await response.json();
 
-    if (Object.keys(data)[0] === 'error') {
-      alert(`${data.error} ${data.description}`);
-    } else {
+    if (Object.keys(data)[0] === 'success') {
+      alert(data.success);
       viewProducts();
       const btn = document.querySelector('#btn-cancel-add');
       btn.click();
+    } else {
+      if (Object.keys(data)[0] === 'errors') {
+        let errorsTemplate = data.errors
+          .map((error) => {
+            return error.msg;
+          })
+          .join('\n');
+        alert(errorsTemplate);
+      } else {
+        alert(`${data.error} ${data.description}`);
+      }
     }
   } catch (error) {
     console.log(error);

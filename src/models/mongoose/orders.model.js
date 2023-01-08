@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const ordersSchema = mongoose.Schema({
+const ordersSchema = Schema({
   clientEmail: { type: String, required: true },
   clientAddress: { type: String, required: true },
   status: { type: String, enum: ['Generada', 'Enviada'], default: 'Generada' },
@@ -25,4 +26,4 @@ ordersSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model('Orders', ordersSchema);
+export default model('Orders', ordersSchema);

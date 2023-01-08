@@ -10,7 +10,8 @@ class MongoDBConnection {
     this.msjError();
   }
 
-  connect = async () => {
+  connect = () => {
+    mongoose.set('strictQuery', true);
     const connection = mongoose.connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

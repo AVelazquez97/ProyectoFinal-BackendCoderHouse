@@ -15,6 +15,7 @@ import homeRouter from './routes/home.routes.js';
 import apiRouter from './routes/api/index.routes.js';
 import authRouter from './routes/auth/index.routes.js';
 import chatRouter from './routes/chat.routes.js';
+import infoRouter from './routes/serverInfo.routes.js';
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.use('/', homeRouter);
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
+app.use('/serverInfo', infoRouter);
 
 app.use(errorHandler);
 app.use(badRequest); // Middleware que evalua si el endpoint visitado existe o no

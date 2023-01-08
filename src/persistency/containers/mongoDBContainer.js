@@ -5,10 +5,10 @@ class MongoDBContainer {
     this.connectDB();
   }
 
-  connectDB = async () => {
+  connectDB = () => {
     try {
-      const db = await MongoDBConnection.getMongoDBInstance();
-      await db.connect();
+      const db = MongoDBConnection.getMongoDBInstance();
+      db.connect();
     } catch (error) {
       throw error;
     }

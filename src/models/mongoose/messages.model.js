@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
-const messagesSchema = new mongoose.Schema({
+const messagesSchema = new Schema({
   email: { type: String, required: true, trim: true },
   msgType: { type: String, required: true, trim: true },
   msg: { type: String, required: true, trim: true },
@@ -15,4 +16,4 @@ messagesSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model('Messages', messagesSchema);
+export default model('Messages', messagesSchema);

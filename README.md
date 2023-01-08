@@ -42,7 +42,7 @@ Las funcionalidades principales son:
 
   ![NodeJS](https://img.shields.io/badge/node.js-v18.10.0-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
-  En caso de usar MongoDB en modo local en vez de Atlas:
+  En caso de usar el entorno de desarrollo se deberá descargar e instalar MongoDB Local:
 
   NPM 8.19.xx
 
@@ -75,10 +75,14 @@ Las funcionalidades principales son:
 
     **En condiciones reales se ocultarían en el `.gitignore`**
   
-  - Para gestionar los tipos de persistencia del DAOFactory se debe alternar la variable de entorno `PERSISTENCY` con los siguientes tres valores posibles:
-    - 'mongoDB' (100% en funcionamiento)
-    - 'fileSystem' (No utilizar - sin terminar)
-    - 'firebase' (No utilizar - sin terminar)
+  - Para gestionar los tipos de persistencia del DAOFactory se debe alternar la variable de entorno `PERSISTENCY` con los siguientes opciones posibles:
+    - Desarrollo (development):
+      - 'mongoDB' (Local)
+      - 'mySQL' (Local)
+    
+    - Producción (production):
+      - 'mongoDB' (Atlas)
+
 
   - El servidor Express puede ser ejecutado mediante diversos scripts disponibles:
     - Dispositivos UNIX:
@@ -103,7 +107,6 @@ Las funcionalidades principales son:
   - Express-session: 1.17.xx
   - Express-validator: 6.14.xx
   - Mongoose: 6.7.xx
-  - Firebase-admin: 11.2.xx
   - Connect-mongo: 4.6.0
   - Cookie-parser: 1.4.6
   - Bcrypt: 5.1.xx

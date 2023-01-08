@@ -1,7 +1,6 @@
 import DAOFactory from '../../persistency/DAO/DAOFactory.js';
 import { PERSISTENCY } from '../../config/index.js';
 import { LoggerError } from '../../config/log4.js';
-import areFieldsFilled from '../../utils/areFieldsFilled.js';
 
 let productDAO;
 (async () => {
@@ -36,72 +35,73 @@ const productsController = {
     const filters = req.query;
     /*Con las siguientes líneas se busca parsear todo los valores de la query para evitar errores*/
     filters.name.length === 0 ? (filters.name = null) : '';
+    filters.code.length === 0 ? (filters.code = null) : '';
     filters.category.length === 0 ? (filters.category = null) : '';
-    filters.minPrice.length === 0 ? (filters.minPrice = null) : filters.minPrice = parseFloat(filters.minPrice);
-    filters.maxPrice.length === 0 ? (filters.maxPrice = null) : filters.maxPrice = parseFloat(filters.maxPrice);
-    filters.minStock.length === 0 ? (filters.minStock = null) : filters.minStock = parseFloat(filters.minStock);
-    filters.maxStock.length === 0 ? (filters.maxStock = null) : filters.maxStock = parseFloat(filters.maxStock);
+    filters.minPrice.length === 0
+      ? (filters.minPrice = null)
+      : (filters.minPrice = parseFloat(filters.minPrice));
+    filters.maxPrice.length === 0
+      ? (filters.maxPrice = null)
+      : (filters.maxPrice = parseFloat(filters.maxPrice));
+    filters.minStock.length === 0
+      ? (filters.minStock = null)
+      : (filters.minStock = parseFloat(filters.minStock));
+    filters.maxStock.length === 0
+      ? (filters.maxStock = null)
+      : (filters.maxStock = parseFloat(filters.maxStock));
+
     try {
       const products = await productDAO.searchByFilter(filters);
       res.status(200).json(products);
-      console.log(products);
     } catch (error) {
       next(error);
     }
   },
   addProduct: async (req, res, next) => {
-    if (areFieldsFilled(req.body)) {
-      const { name, description, code, thumbnail, price, stock } = req.body;
-      // Si no quedó ningún campo vacío, se procede a ingresar el producto
-      try {
-        const msg = await productDAO.insertProduct({
+    const { name, category, description, code, thumbnail, price, stock } = req.body;
+    try {
+      const success = await productDAO.insertProduct({
+        name,
+        category,
+        description,
+        code,
+        thumbnail,
+        price: parseFloat(price),
+        stock,
+      });
+      res.status(200).json(success);
+    } catch (error) {
+      next(error);
+    }
+  },
+  updateProductById: async (req, res, next) => {
+    const { id } = req.params;
+    const { name, category, description, code, thumbnail, price, stock } = req.body;
+    try {
+      const timestamp = new Date();
+      const success = await productDAO.updateProduct(
+        { id },
+        {
+          timestamp,
           name,
+          category,
           description,
           code,
           thumbnail,
           price: parseFloat(price),
           stock,
-        });
-        res.status(200).json(msg);
-      } catch (error) {
-        next(error);
-      }
-    } else {
-      next('Error al insertar: uno o más campos quedaron vacíos.');
-    }
-  },
-  updateProductById: async (req, res, next) => {
-    if (areFieldsFilled(req.body)) {
-      const { id } = req.params;
-      const { name, description, code, thumbnail, price, stock } = req.body;
-      // Si no quedó ningún campo vacío, se procede a actualizar el producto
-      try {
-        const timestamp = new Date();
-        const msg = await productDAO.updateProduct(
-          { id },
-          {
-            timestamp,
-            name,
-            description,
-            code,
-            thumbnail,
-            price: parseFloat(price),
-            stock,
-          }
-        );
-        res.status(200).json(msg);
-      } catch (error) {
-        next(error);
-      }
-    } else {
-      next('Error al actualizar: uno o más campos quedaron vacíos.');
+        }
+      );
+      res.status(200).json(success);
+    } catch (error) {
+      next(error);
     }
   },
   deleteProductById: async (req, res, next) => {
     const { id } = req.params;
     try {
-      const msg = await productDAO.deleteById(id);
-      res.status(200).json(msg);
+      const success = await productDAO.deleteById(id);
+      res.status(200).json(success);
     } catch (error) {
       next(error);
     }

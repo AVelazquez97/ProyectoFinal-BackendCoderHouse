@@ -18,7 +18,7 @@ class ProductsDAOMongoDB extends MongoDBContainer {
   insertProduct = async (productData) => {
     try {
       await this.collectionName.create(productData);
-      return { msg: 'El producto fue añadido al sistema.' };
+      return { success: 'El producto fue añadido al sistema.' };
     } catch (error) {
       throw error.message;
     }
@@ -57,13 +57,14 @@ class ProductsDAOMongoDB extends MongoDBContainer {
       const products = await this.collectionName.find({
         $or: [
           { name: { $regex: '.*' + filters.name + '.*', $options: 'i' } },
-          { category: { $regex: '.*' + filters.category + '.*', $options: 'i' } },
+          {
+            category: { $regex: '.*' + filters.category + '.*', $options: 'i' },
+          },
           { code: filters.code },
           { price: { $gte: filters.minPrice, $lte: filters.maxPrice } },
           { stock: { $gte: filters.minStock, $lte: filters.maxStock } },
         ],
       });
-      
       if (products.length < 1) {
         throw new Error(
           'Error al buscar: no hay productos que coincidan con los filtros.'
@@ -86,7 +87,7 @@ class ProductsDAOMongoDB extends MongoDBContainer {
           'Error al actualizar: no se encontró el producto con el id indicado.'
         );
       }
-      return { msg: 'El producto fue actualizado con éxito.' };
+      return { success: 'El producto fue actualizado con éxito.' };
     } catch (error) {
       throw error.message;
     }
@@ -103,7 +104,7 @@ class ProductsDAOMongoDB extends MongoDBContainer {
           'Error al borrar: no se encontró el producto con el id indicado.'
         );
       }
-      return { msg: 'El producto fue eliminado con éxito.' };
+      return { success: 'El producto fue eliminado con éxito.' };
     } catch (error) {
       throw error.message;
     }

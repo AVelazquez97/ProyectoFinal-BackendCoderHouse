@@ -23,15 +23,19 @@ loginForm.onsubmit = async (e) => {
     if (Object.keys(data)[0] === 'success') {
       alert(data.success);
       window.location.replace('/');
-    } else if (Object.keys(data)[0] === 'errors') {
-      let errorsTemplate = data.errors
-        .map((error) => {
-          return error.msg;
-        })
-        .join('\n');
-      alert(errorsTemplate);
+    } else {
+      if (Object.keys(data)[0] === 'errors') {
+        let errorsTemplate = data.errors
+          .map((error) => {
+            return error.msg;
+          })
+          .join('\n');
+        alert(errorsTemplate);
+      } else {
+        alert(data.error);
+      }
     }
   } catch (error) {
-    alert('Credenciales incorrectas. Intenta nuevamente.');
+    console.error(error);
   }
 };

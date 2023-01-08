@@ -28,8 +28,7 @@ router.post(
         /*Parche ineficiente para borrar foto subida al servidor, en caso de que falle el registro*/
         if (req.file)
           deleteFile(process.cwd() + `/public/img/${req.file.filename}`);
-        if (error) return res.status(404).json({ error });
-        res.status(400).json({ error: 'Falló el registro de usuario.' });
+        if (error) return res.status(404).json(error);
       }
     )(req, res, next);
   }

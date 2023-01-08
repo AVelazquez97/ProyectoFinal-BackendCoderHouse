@@ -1,0 +1,148 @@
+<head>
+  <title>Información del servidor - AVP e-commerce</title>
+</head>
+
+<body>
+  {{! Comienzo barra de navegación }}
+  <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
+    <div class='container'>
+      <a class='navbar-brand' href='/'>
+        <i id='logo' class='bx bxs-shopping-bag bx-rotate-90 bx-tada bx-md'></i>
+      </a>
+      <button
+        class='navbar-toggler'
+        type='button'
+        data-bs-toggle='collapse'
+        data-bs-target='#navbar-list-4'
+        aria-controls='navbarNav'
+        aria-expanded='false'
+        aria-label='Toggle navigation'
+      >
+        <span class='navbar-toggler-icon'></span>
+      </button>
+
+      <div class='collapse navbar-collapse' id='navbar-list-4'>
+        <ul class='navbar-nav align-items-center'>
+          <li class='nav-item'>
+            <a class='nav-link active' aria-current='page' href='/'>
+              <i id='logo-title'>AVP e-commerce</i>
+            </a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' aria-current='page' href='cart.html'>
+              Carrito
+            </a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' aria-current='page' href='chat'>
+              Chat global
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class='collapse navbar-collapse justify-content-end'
+        id='navbar-list-4'
+      >
+        <ul class='navbar-nav align-items-center'>
+          {{! Acá se introducirá la información de usuario o los botones de login y signup }}
+          <li id='user' class='nav-item dropdown'></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {{! Fin barra de navegación }}
+
+  <main>
+    <div class='container py-5 min-vh-70'>
+      <h1>Información del servidor</h1>
+      <div class="table-responsive-lg">
+        <table class="table align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Nombre</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Puerto</td>
+              <td>{{info.port}}</td>
+            </tr>
+            <tr>
+              <td>Entorno (env)</td>
+              <td>{{info.environment}}</td>
+            </tr>
+            <tr>
+              <td>Modo cluster</td>
+              <td>{{info.clusterMode}}</td>
+            </tr>
+            <tr>
+              <td>Tipo de persistencia</td>
+              <td>{{info.persitency}}</td>
+            </tr>
+            <tr>
+              <td>Path de ejecución</td>
+              <td>{{info.path}}</td>
+            </tr>
+            <tr>
+              <td>Process id</td>
+              <td>{{info.pid}}</td>
+            </tr>
+            <tr>
+              <td>Nombre de la plataforma (sistema operativo)</td>
+              <td>{{info.os}}</td>
+            </tr>
+            <tr>
+              <td>Versión de node.js</td>
+              <td>{{info.nodeVersion}}</td>
+            </tr>
+            <tr>
+              <td>Carpeta del proyecto</td>
+              <td>{{info.dirPath}}</td>
+            </tr>
+            <tr>
+              <td>Memoria total reservada (rss)</td>
+              <td>{{info.memoryUsage}} MiB</td>
+            </tr>
+            <tr>
+              <td>Cantidad de procesadores del servidor</td>
+              <td>{{info.numCPUs}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  {{! Comienzo footer }}
+  <footer class='footer mt-auto py-3 bg-light'>
+    <div class='container text-center'>
+      <span class='text-muted'>&copy;2022 Desarrollado por Alexis Velázquez</span>
+    </div>
+  </footer>
+  {{! Fin footer }}
+
+  {{! JS Popper }}
+  <script src='/node_modules/@popperjs/core/dist/umd/popper.min.js'></script>
+
+  {{! JS Bootstrap }}
+  <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+  {{! JS Handlebars }}
+  <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
+
+  {{! JS to use socketIO inside of index.js  }}
+  <script src='/socket.io/socket.io.js'></script>
+
+  {{! JS chat client socket  }}
+  <script src='/js/chat/globalChat.js'></script>
+
+  {{! JS Obtener información de usuario  }}
+  <script src='/js/auth/getUser.js'></script>
+
+  {{! JS Logout  }}
+  <script src='/js/auth/logout.js'></script>
+</body>

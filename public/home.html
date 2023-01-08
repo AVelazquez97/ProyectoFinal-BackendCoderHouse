@@ -46,9 +46,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="chat"
-                >Chat global</a
-              >
+              <a class="nav-link" aria-current="page" href="chat">Chat global</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="serverInfo">Info del server</a>
             </li>
           </ul>
         </div>
@@ -200,7 +201,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form id="form-add-product" autocomplete="off">
+                <form id="form-add-product" class="needs-validation" novalidate>
                   <div class="row g-3 mb-4">
                     <div class="col-2">
                       <label class="form-label" for="code">Código</label>
@@ -233,6 +234,7 @@
                         id="description"
                         type="text"
                         name="description"
+                        required
                       />
                     </div>
                   </div>
@@ -256,11 +258,24 @@
                         type="number"
                         step="0.01"
                         name="stock"
+                        required
                       />
                     </div>
                   </div>
                   <div class="row g-3 mb-4">
-                    <div class="col-12">
+                    <div class="col-4">
+                      <label class="form-label" for="category"
+                        >Categoría de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="category"
+                        type="text"
+                        name="category"
+                        required
+                      />
+                    </div>
+                    <div class="col-8">
                       <label class="form-label" for="thumbnail"
                         >Imagen (url)</label
                       >
@@ -314,10 +329,10 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form id="form-edit-product" autocomplete="off">
+                <form id="form-edit-product" class="needs-validation" novalidate>
                   <div class="row g-3 mb-4">
                     <div class="col-2">
-                      <label class="form-label">Código</label>
+                      <label class="form-label" for="edit-code">Código</label>
                       <input
                         class="form-control form-control-sm"
                         id="edit-code"
@@ -327,7 +342,9 @@
                       />
                     </div>
                     <div class="col-4">
-                      <label class="form-label">Nombre de Producto</label>
+                      <label class="form-label" for="edit-name"
+                        >Nombre de Producto</label
+                      >
                       <input
                         class="form-control form-control-sm"
                         id="edit-name"
@@ -337,18 +354,21 @@
                       />
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Descripción de Producto</label>
+                      <label class="form-label" for="edit-description"
+                        >Descripción de Producto</label
+                      >
                       <input
                         class="form-control form-control-sm"
                         id="edit-description"
                         type="text"
                         name="description"
+                        required
                       />
                     </div>
                   </div>
                   <div class="row g-3 mb-4">
                     <div class="col-6">
-                      <label class="form-label">Precio</label>
+                      <label class="form-label" for="edit-price">Precio</label>
                       <input
                         class="form-control form-control-sm"
                         id="edit-price"
@@ -359,19 +379,34 @@
                       />
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Stock</label>
+                      <label class="form-label" for="edit-stock">Stock</label>
                       <input
                         class="form-control form-control-sm"
                         id="edit-stock"
                         type="number"
                         step="0.01"
                         name="stock"
+                        required
                       />
                     </div>
                   </div>
                   <div class="row g-3 mb-4">
-                    <div class="col-12">
-                      <label class="form-label">Imagen (url)</label>
+                    <div class="col-4">
+                      <label class="form-label" for="edit-category"
+                        >Categoría de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-category"
+                        type="text"
+                        name="category"
+                        required
+                      />
+                    </div>
+                    <div class="col-8">
+                      <label class="form-label" for="edit-thumbnail"
+                        >Imagen (url)</label
+                      >
                       <input
                         class="form-control form-control-sm"
                         id="edit-thumbnail"
@@ -428,6 +463,9 @@
 
     <!-- JS Logout -->
     <script src="./js/auth/logout.js"></script>
+
+    <!-- JS para validar formulario -->
+    <script src="./js/auth/formValidator.js"></script>
 
     <!-- JS Vista de productos -->
     <script src="./js/products/viewProducts.js"></script>
