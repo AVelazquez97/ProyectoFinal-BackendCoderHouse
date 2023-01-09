@@ -93,7 +93,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
           'Error al borrar: no existe un carrito con el id indicado.'
         );
       }
-      return { msg: 'El carrito ha sido eliminado con éxito.' };
+      return { success: 'El carrito ha sido eliminado con éxito.' };
     } catch (error) {
       throw error.message;
     }
@@ -153,7 +153,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
         new: true,
       });
 
-      return { msg: 'El producto fue añadido al carrito.' };
+      return { success: 'El producto fue añadido al carrito.' };
     } catch (error) {
       throw error.message;
     }
@@ -185,7 +185,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
         );
       }
 
-      return { msg: 'El producto fue eliminado del carrito con éxito.' };
+      return { success: 'El producto fue eliminado del carrito con éxito.' };
     } catch (error) {
       throw error.message;
     }

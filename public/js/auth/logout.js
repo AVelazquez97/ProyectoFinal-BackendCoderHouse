@@ -10,7 +10,13 @@ const logout = async () => {
 
     const data = await response.json();
     if (Object.keys(data)[0] === 'success') {
-      alert(data.success);
+      await Swal.fire({
+        icon: 'success',
+        title: data.success,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.replace('/');
     } else {
       console.log(data);
       throw new Error(data);
@@ -18,5 +24,4 @@ const logout = async () => {
   } catch (error) {
     console.log(error);
   }
-  window.location.replace('/');
 };

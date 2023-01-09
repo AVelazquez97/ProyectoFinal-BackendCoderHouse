@@ -35,9 +35,18 @@ const addToCart = async (productId) => {
     );
     const data = await response.json();
     if (Object.keys(data)[0] !== 'error') {
-      alert(data.msg);
+      Swal.fire({
+        icon: 'success',
+        title: data.success,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } else {
-      alert(`${data.error} ${data.description}`);
+      Swal.fire({
+        icon: 'error',
+        text: `${data.error} ${data.description}`,
+        showConfirmButton: true,
+      });
     }
   } catch (error) {
     console.log(error);

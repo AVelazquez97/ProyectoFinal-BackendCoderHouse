@@ -66,7 +66,7 @@ class OrdersDAOMongoDB extends MongoDBContainer {
           quantity: product.quantity,
         };
       });
-      const msg = await this.carts.deleteById(cart.id);
+      await this.carts.deleteById(cart.id);
 
       await this.collectionName.create({
         clientEmail: client.email,

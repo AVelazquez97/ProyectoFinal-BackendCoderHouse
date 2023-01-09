@@ -45,7 +45,12 @@ const editProduct = async (id) => {
         const result = await response.json();
 
         if (Object.keys(result)[0] === 'success') {
-          alert(result.success);
+          await Swal.fire({
+            icon: 'success',
+            title: result.success,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           viewProducts();
           const btn = document.querySelector('#btn-cancel-edit');
           btn.click();
@@ -56,9 +61,17 @@ const editProduct = async (id) => {
                 return error.msg;
               })
               .join('\n');
-            alert(errorsTemplate);
+              Swal.fire({
+                icon: 'error',
+                text: errorsTemplate,
+                showConfirmButton: true,
+              });
           } else {
-            alert(`${result.error} ${result.description}`);
+            Swal.fire({
+              icon: 'error',
+              text: `${result.error} ${result.description}`,
+              showConfirmButton: true,
+            });
           }
         }
       } catch (error) {

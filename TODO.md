@@ -5,8 +5,6 @@
 # Opcional: 
 + Documentar API con swagger
 
-+ Utilizar swal en front en vez de alert
-
 + Implementar estrategia de autenticación de passport para loguear con cuenta de google
 
 + Refactorizar el código de las funciones y/o métodos que tengan demasiado complejidad

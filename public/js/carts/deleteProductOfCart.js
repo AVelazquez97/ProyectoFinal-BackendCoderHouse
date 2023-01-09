@@ -6,10 +6,19 @@ const deleteProductOfCart = async (productId) => {
     });
     const data = await response.json();
     if (Object.keys(data)[0] !== 'error') {
-      alert(data.msg)
+      await Swal.fire({
+        icon: 'success',
+        title: data.success,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       viewCartProducts();
     } else {
-      alert(data.error);
+      Swal.fire({
+        icon: 'error',
+        text: data.error,
+        showConfirmButton: true,
+      });
     }
   } catch (error) {
     console.log(error);

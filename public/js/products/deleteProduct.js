@@ -5,9 +5,19 @@ const deleteProduct = async (id) => {
     });
     const data = await response.json();
     if (Object.keys(data)[0] !== 'error') {
-      await viewProducts();
+      await Swal.fire({
+        icon: 'success',
+        title: data.success,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      viewProducts();
     } else {
-      alert(`${data.error} ${data.description}`);
+      Swal.fire({
+        icon: 'error',
+        text: `${data.error} ${data.description}`,
+        showConfirmButton: true,
+      });
     }
   } catch (error) {
     console.log(error);

@@ -27,7 +27,12 @@ signupForm.onsubmit = async (e) => {
     const data = await response.json();
 
     if (Object.keys(data)[0] === 'success') {
-      alert(data.success);
+      await Swal.fire({
+        icon: 'success',
+        title: data.success,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       window.location.replace('/login.html');
     } else {
       if (Object.keys(data)[0] === 'errors') {
@@ -36,9 +41,17 @@ signupForm.onsubmit = async (e) => {
             return error.msg;
           })
           .join('\n');
-        alert(errorsTemplate);
+          Swal.fire({
+            icon: 'error',
+            text: errorsTemplate,
+            showConfirmButton: true,
+          });
       } else {
-        alert(data.error);
+        Swal.fire({
+          icon: 'error',
+          text: data.error,
+          showConfirmButton: true,
+        });
       }
     }
   } catch (error) {
