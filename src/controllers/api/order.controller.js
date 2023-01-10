@@ -49,12 +49,12 @@ const ordersController = {
   },
   confirmOrder: async (req, res, next) => {
     try {
-      const confirmedOrder = await orderDAO.confirm(req.params.id, {
+      const response = await orderDAO.confirm(req.params.id, {
         status: 'Enviada',
       });
-      sendOrderMail(confirmedOrder);
-      sendOrderWpp(confirmedOrder);
-      res.status(200).json(confirmedOrder);
+      sendOrderMail(response.updatedOrder);
+      sendOrderWpp(response.updatedOrder);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }

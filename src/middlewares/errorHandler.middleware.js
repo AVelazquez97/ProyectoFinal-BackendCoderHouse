@@ -20,6 +20,7 @@ const errorHandler = (error, req, res, next) => {
     'Error al listar: no hay ordenes adjuntas al cliente.',
     'Error al generar orden: no hay productos en el carrito.',
     'Error al borrar: no existe una orden con el id indicado.',
+    'Error al confirmar: no se pudo procesar la orden.',
     /* ---------------- Errores relacionados con inicio de sesión --------------- */
     'Error al iniciar sesión: No existe el usuario con el mail ingresado.',
     'Error al iniciar sesión: La contraseña no coincide.',

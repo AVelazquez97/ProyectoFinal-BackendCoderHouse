@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import MongoDBContainer from '../../containers/mongoDBContainer.js';
 import cartModel from '../../../models/mongoose/carts.model.js';
 import ProductsDAO from '../products/mongoDB.js';
+import CartDTO from '../../DTO/cartDTO.js'
+import CartProductDTO from '../../DTO/cartProductDTO.js'
 
 let instanceMongoDB = null;
 class CartsDAOMongoDB extends MongoDBContainer {
@@ -39,18 +41,6 @@ class CartsDAOMongoDB extends MongoDBContainer {
     }
   };
 
-  findCartByClientId = async (clientId) => {
-    try {
-      const cart = this.collectionName.findOne({
-        clientId: { _id: mongoose.Types.ObjectId(clientId) },
-      });
-
-      return cart;
-    } catch (error) {
-      throw error;
-    }
-  };
-
   #updateProductToCart = async (cart, prodId, quantity) => {
     let product = cart.products.find(
       (product) =>
@@ -61,6 +51,17 @@ class CartsDAOMongoDB extends MongoDBContainer {
       return true;
     } else {
       return false;
+    }
+  };
+
+  findCartByClientId = async (clientId) => {
+    try {
+      const cart = this.collectionName.findOne({
+        clientId: { _id: mongoose.Types.ObjectId(clientId) },
+      });
+      return cart;
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -75,8 +76,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
           clientId,
         });
       }
-
-      return cart.id;
+      return CartDTO.toDTO(cart);
     } catch (error) {
       throw error.message;
     }
@@ -113,7 +113,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
           'Error al listar: el carrito seleccionado no tiene productos.'
         );
       }
-      return productsFromCart;
+      return CartProductDTO.toDTO(productsFromCart);
     } catch (error) {
       throw error.message;
     }

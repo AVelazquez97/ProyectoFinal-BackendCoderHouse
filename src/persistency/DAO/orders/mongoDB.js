@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import MongoDBContainer from '../../containers/mongoDBContainer.js';
 import orderModel from '../../../models/mongoose/orders.model.js';
 import CartsDAO from '../carts/mongoDB.js';
+import OrderDTO from '../../DTO/orderDTO.js';
 
 let instanceMongoDB = null;
 class OrdersDAOMongoDB extends MongoDBContainer {
@@ -26,7 +27,7 @@ class OrdersDAOMongoDB extends MongoDBContainer {
       if (orders.length < 1) {
         throw new Error('Error al listar: no hay ordenes adjuntas al cliente.');
       }
-      return orders;
+      return OrderDTO.toDTO(orders);
     } catch (error) {
       throw error.message;
     }
@@ -40,7 +41,7 @@ class OrdersDAOMongoDB extends MongoDBContainer {
           'Error al listar: no se encontró el producto con el id indicado.'
         );
       }
-      return order;
+      return OrderDTO.toDTO(order);
     } catch (error) {
       throw error.message;
     }
@@ -81,14 +82,21 @@ class OrdersDAOMongoDB extends MongoDBContainer {
 
   confirm = async (orderId, status) => {
     try {
-      const orderUpdated = await this.collectionName.findByIdAndUpdate({ _id: orderId }, status, {
-        new: true,
-      });  
-      return orderUpdated;
+      const updatedOrder = await this.collectionName.findByIdAndUpdate(
+        { _id: orderId },
+        status,
+        {
+          new: true,
+        }
+      );
+      if (!updatedOrder) {
+        throw new Error('Error al confirmar: no se pudo procesar la orden.');
+      }
+      return { updatedOrder, success: 'La orden ha sido enviada con éxito.' };
     } catch (error) {
       throw error.message;
     }
-  }
+  };
 
   deleteById = async (id) => {
     try {
@@ -101,7 +109,7 @@ class OrdersDAOMongoDB extends MongoDBContainer {
           'Error al borrar: no existe una orden con el id indicado.'
         );
       }
-      return { success: 'La orden ha sido eliminado con éxito.' };
+      return { success: 'La orden ha sido eliminada con éxito.' };
     } catch (error) {
       throw error.message;
     }

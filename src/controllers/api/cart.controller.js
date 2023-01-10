@@ -17,8 +17,8 @@ const cartsController = {
   createCart: async (req, res, next) => {
     try {
       const { clientId } = req.params;
-      const id = await cartDAO.createCart(clientId);
-      res.status(200).json({id});
+      const cart = await cartDAO.createCart(clientId);
+      res.status(200).json(cart);
     } catch (error) {
       next(error);
     }

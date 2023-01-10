@@ -67,14 +67,9 @@ Las funcionalidades principales son:
   ```
 
 ## C. Ejecución en localhost
-  - En los ficheros `development.env` y `production.env` se encuentran la variables de entorno. 
-
-    Estas deben ser configuradas con las credenciales necesarias para la correcta ejecución del servidor.
-  
-    **Una aclaración importante es que estos ficheros están visibles únicamente porque es necesario para el correcto monitoreo del proyecto.** 
-
-    **En condiciones reales se ocultarían en el `.gitignore`**
-  
+  - En los ficheros `development.env.example` y `production.env.example` se encuentran la variables de entorno. 
+    Estos deben ser renombrados (retirando el .example) y ser configurados con las credenciales necesarias para la correcta ejecución del servidor.
+    
   - Para gestionar los tipos de persistencia del DAOFactory se debe alternar la variable de entorno `PERSISTENCY` con los siguientes opciones posibles:
     - Desarrollo (development):
       - 'mongoDB' (Local)
