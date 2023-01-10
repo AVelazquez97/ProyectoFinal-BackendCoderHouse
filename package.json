@@ -5,25 +5,26 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "npm run production",
+    "start": "npm run install:front:deps && npm run production",
     "watch": "export NODE_ENV=development && nodemon server.js --port 8080",
     "development": "export NODE_ENV=development && node server.js --port 8080",
     "production": "export NODE_ENV=production && node server.js",
     "development:win": "set NODE_ENV=development && node server.js --port 8080",
     "production:win": "set NODE_ENV=production && node server.js",
+    "install:front:deps": "cd public/ && npm i",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AVelazquez97/ProyectoFinal-BackendCoderHouse.git"
+    "url": "git+https://github.com/AVelazquez97/ecommerce-nodejs-project.git"
   },
   "keywords": [],
   "author": "https://github.com/AVelazquez97",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AVelazquez97/ProyectoFinal-BackendCoderHouse/issues"
+    "url": "https://github.com/AVelazquez97/ecommerce-nodejs-project/issues"
   },
-  "homepage": "https://github.com/AVelazquez97/ProyectoFinal-BackendCoderHouse#readme",
+  "homepage": "https://github.com/AVelazquez97/ecommerce-nodejs-project#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "connect-mongo": "^4.6.0",
@@ -44,6 +45,11 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.4",
-    "twilio": "^3.83.3"
+    "twilio": "^3.83.3",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "boxicons": "^2.1.4",
+    "handlebars": "^4.7.7",
+    "sweetalert2": "^11.6.16"
   }
 }
