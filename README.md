@@ -95,24 +95,36 @@ Las funcionalidades principales son:
 
 # 2. Tecnologías y librerías utilizadas
 
-  - NodeJS 18.7.xx
-  - NPM 8.19.xx
-  - Express 4.18.xx
-  - Express-handlebars: 6.0.xx
-  - Express-session: 1.17.xx
-  - Express-validator: 6.14.xx
-  - Mongoose: 6.7.xx
-  - Connect-mongo: 4.6.0
-  - Cookie-parser: 1.4.6
-  - Bcrypt: 5.1.xx
-  - Dotenv: 16.0.xx
-  - Log4js: 6.7.xx
-  - Minimist: 1.2.xx
-  - Multer: 1.4.xx
-  - Nodemailer: 6.8.xx
-  - Passport: 0.6.xx
-  - Passport-local: 1.0.xx
-  - Twilio: 3.83.xx
+  - Backend:
+    - NodeJS 18.7.xx
+    - NPM 8.19.xx
+    - Express 4.18.xx
+    - Express-handlebars: 6.0.xx
+    - Express-session: 1.17.xx
+    - Express-validator: 6.14.xx
+    - Knex: 2.4.xx
+    - Mysql: 2.18.xx
+    - Mongoose: 6.7.xx
+    - Connect-mongo: 4.6.0
+    - Cookie-parser: 1.4.6
+    - Bcrypt: 5.1.xx
+    - Dotenv: 16.0.xx
+    - Log4js: 6.7.xx
+    - Minimist: 1.2.xx
+    - Multer: 1.4.xx
+    - Nodemailer: 6.8.xx
+    - Passport: 0.6.xx
+    - Passport-local: 1.0.xx
+    - Twilio: 3.83.xx
+    - Normalizr: 3.6.xx
+  
+  - Frontend: 
+    - Popperjs: 2.11.xx
+    - Bootstrap: 5.2.xx
+    - Boxicons: 2.1.xx
+    - Handlebars: 4.7.xx
+    - Normalizr: 3.6.xx
+    - Sweetalert2: 11.6.xx
 
 # 3. AUTH Endpoints
  
