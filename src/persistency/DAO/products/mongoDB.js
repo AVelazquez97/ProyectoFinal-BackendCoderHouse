@@ -1,5 +1,6 @@
 import MongoDBContainer from '../../containers/mongoDBContainer.js';
 import productModel from '../../../models/mongoose/products.model.js';
+import ProductDTO from '../../DTO/productDTO.js';
 
 let instanceMongoDB = null;
 class ProductsDAOMongoDB extends MongoDBContainer {
@@ -17,7 +18,10 @@ class ProductsDAOMongoDB extends MongoDBContainer {
 
   insertProduct = async (productData) => {
     try {
-      await this.collectionName.create(productData);
+      const productCreated = await this.collectionName.create(productData);
+      if (!productCreated) {
+        throw new Error('Error al insertar: no se pudo cargar el producto.');
+      }
       return { success: 'El producto fue añadido al sistema.' };
     } catch (error) {
       throw error.message;
@@ -32,7 +36,7 @@ class ProductsDAOMongoDB extends MongoDBContainer {
           'Error al listar: no hay productos cargados en el sistema.'
         );
       }
-      return products;
+      return ProductDTO.toDTO(products);
     } catch (error) {
       throw error.message;
     }
@@ -46,7 +50,7 @@ class ProductsDAOMongoDB extends MongoDBContainer {
           'Error al listar: no se encontró el producto con el id indicado.'
         );
       }
-      return product;
+      return ProductDTO.toDTO(product);
     } catch (error) {
       throw error.message;
     }

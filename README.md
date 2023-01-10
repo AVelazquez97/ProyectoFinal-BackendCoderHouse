@@ -78,7 +78,7 @@ Las funcionalidades principales son:
   - Para gestionar los tipos de persistencia del DAOFactory se debe alternar la variable de entorno `PERSISTENCY` con los siguientes opciones posibles:
     - Desarrollo (development):
       - 'mongoDB' (Local)
-      - 'mySQL' (Local)
+      - 'mySQL' (Local - Proximamente. No utilizar por ahora) 
     
     - Producción (production):
       - 'mongoDB' (Atlas)

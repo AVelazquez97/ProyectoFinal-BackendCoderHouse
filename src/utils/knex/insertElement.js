@@ -1,8 +1,6 @@
-import knex from 'knex';
 import { LoggerError } from '../../config/log4.js';
 
-const insertNewElement = async (option, tableName, data) => {
-  const db = knex(option);
+const insertNewElement = async (db, tableName, data) => {
   try {
     return await db(tableName).insert(data);
   } catch (error) {

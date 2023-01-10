@@ -1,9 +1,7 @@
-import knex from 'knex';
 import path from 'path';
 import { LoggerInfo, LoggerError } from '../../config/log4.js';
 
-const createTable = async (option, tableName) => {
-  const db = knex(option);
+const createTable = async (db, tableName) => {
   try {
     //Import dinámico. (Según el nombre de la tabla que reciba la función, importa el schema necesario)
     const { default: setSchema } = await import(path.join(process.cwd(), `/src/models/knex/${tableName}.model.js`));

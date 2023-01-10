@@ -1,16 +1,15 @@
 import SQLContainer from '../../containers/sqlContainer.js';
-import MySQLConnection from '../../../config/databases/connectionMySQL.js';
+import UserDTO from '../../DTO/userDTO.js';
 import insertNewElement from '../../../utils/knex/insertElement.js';
 import getUserById from '../../../utils/knex/getUserById.js';
 import getUserByEmail from '../../../utils/knex/getUserByEmail.js';
-import UserDTO from '../../DTO/userDTO.js';
-
-const mysql = MySQLConnection.getMySQLConnectionInstance();
 
 let instanceMySQL = null;
 class UsersDAOMySQL extends SQLContainer {
   constructor() {
-    super(mysql.configData(), 'users');
+    super();
+    this.tableName = 'users';
+    this.createTable(this.tableName);
   }
 
   static getInstance = () => {
@@ -22,7 +21,7 @@ class UsersDAOMySQL extends SQLContainer {
 
   createUser = async (userData) => {
     try {
-      const newUserId = await insertNewElement(this.config, this.tableName, userData);
+      const newUserId = await insertNewElement(this.db, this.tableName, userData);
       const newUser = await this.getUserById(newUserId[0]);
       return newUser;
     } catch (error) {
@@ -32,7 +31,7 @@ class UsersDAOMySQL extends SQLContainer {
 
   getUserByEmail = async (email) => {
     try {
-      const user = await getUserByEmail(this.config, email);
+      const user = await getUserByEmail(this.db, email);
       if (!user) {
         return null;
       }
@@ -44,7 +43,7 @@ class UsersDAOMySQL extends SQLContainer {
   
   getUserById = async (id) => {
     try {
-      const user = await getUserById(this.config, id);
+      const user = await getUserById(this.db, id);
       if (!user) {
         return null;
       }

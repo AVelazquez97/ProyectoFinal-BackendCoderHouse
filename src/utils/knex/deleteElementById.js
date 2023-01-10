@@ -1,8 +1,6 @@
-import knex from 'knex';
 import { LoggerError } from '../../config/log4.js';
 
-const deletElementById = async (option, tableName, id) => {
-  const db = knex(option);
+const deletElementById = async (db, tableName, id) => {
   try {
     const element = await db.from(tableName).where({ id }).del();
     return element;

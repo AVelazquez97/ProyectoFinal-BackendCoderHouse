@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const messagesSchema = new Schema({
   email: { type: String, required: true, trim: true },
-  msgType: { type: String, required: true, trim: true },
+  msgType: { type: String,  enum: ['Usuario', 'Sistema'], required: true, trim: true },
   msg: { type: String, required: true, trim: true },
   fyh: { type: Date, default: Date.now, trim: true },
 });

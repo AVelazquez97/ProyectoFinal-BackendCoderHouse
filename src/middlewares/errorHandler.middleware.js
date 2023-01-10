@@ -2,6 +2,7 @@ import { LoggerError, LoggerWarn } from '../config/log4.js';
 const errorHandler = (error, req, res, next) => {
   const notFoundedErrors = [
     /* -------------------- Errores relacionados a productos -------------------- */
+    'Error al insertar: no se pudo cargar el producto.',
     'Error al listar: no se encontró el producto con el id indicado.',
     'Error al listar: no hay productos cargados en el sistema.',
     'Error al actualizar: no se encontró el producto con el id indicado.',

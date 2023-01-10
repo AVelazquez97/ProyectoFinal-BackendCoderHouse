@@ -1,22 +1,19 @@
 import knex from 'knex';
+import MySQLConnection from '../../config/databases/connectionMySQL.js';
 import createTable from '../../utils/knex/createTable.js';
-import { LoggerError } from '../../config/log4.js';
  
 class SQLContainer {
-  constructor(dbConfigs, tableName) {
-    this.db = knex(dbConfigs);
-    this.config = dbConfigs;
-    this.tableName = tableName;
-    this.#createTable();
+  constructor() {
+    this.dbOptions = MySQLConnection.getMySQLConnectionInstance().getOptions();
+    this.db = knex(dbOptions);
   }
 
-  #createTable = async () => {
+  createTable = async (tableName) => {
     try {
-      if (!(await this.db.schema.hasTable(this.tableName))) {
-        await createTable(this.config, this.tableName);
+      if (!(await this.db.schema.hasTable(tableName))) {
+        await createTable(this.db, tableName);
       }
     } catch (error) {
-      LoggerError.error(error);
       throw error;
     }
   };

@@ -47,10 +47,10 @@ formAddProduct.onsubmit = async (e) => {
           .map((error) => {
             return error.msg;
           })
-          .join('\n');
+          .join('</br>');
           Swal.fire({
             icon: 'error',
-            text: errorsTemplate,
+            html: errorsTemplate,
             showConfirmButton: true,
           });
       } else {

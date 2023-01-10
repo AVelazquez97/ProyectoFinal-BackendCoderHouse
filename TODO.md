@@ -1,8 +1,5 @@
-+ Implementar capa de persistencia gestionada con MySQL 
++ Implementar capa de persistencia gestionada con MySQL (En proceso)
 
-+ Desplegar en la nube
-
-# Opcional: 
 + Documentar API con swagger
 
 + Implementar estrategia de autenticación de passport para loguear con cuenta de google

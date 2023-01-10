@@ -1,8 +1,6 @@
-import knex from 'knex';
 import { LoggerError } from '../../config/log4.js';
 
-const getUserByEmail = async (option, dataUser) => {
-  const db = knex(option);
+const getUserByEmail = async (db, dataUser) => {
   try {
     const user = await db.from('users').select('*').where({ email: dataUser.email });
     return user[0];

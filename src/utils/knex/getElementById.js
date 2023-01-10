@@ -1,8 +1,6 @@
-import knex from 'knex';
 import { LoggerError } from '../../config/log4.js';
 
-const getElementById = async (option, tableName, id) => {
-  const db = knex(option);
+const getElementById = async (db, tableName, id) => {
   try {
     const element = await db.from(tableName).select('*').where({ id });
     return element[0];

@@ -1,4 +1,3 @@
-import MySQLConnection from '../../../config/databases/configMySQL.js';
 import SQLContainer from '../../containers/SQLContainer.js';
 import MsgDTO from '../../DTO/msgDTO.js';
 import insertNewElement from '../../../utils/knex/insertElement.js';
@@ -6,12 +5,12 @@ import readAllElements from '../../../utils/knex/readElements.js';
 import getMessagesByEmail from '../../../utils/knex/getMessagesByEmail.js';
 import { formatDateToMysql } from '../../../utils/dateFormaterToMySQL.js';
 
-const mysql = MySQLConnection.getMySQLConnectionInstance();
-
 let instanceMySQL = null;
 class MessagesDAOMySQL extends SQLContainer {
   constructor() {
-    super(mysql.configData(), 'messages');
+    super();
+    this.tableName = 'messages';
+    this.createTable(this.tableName);
   }
 
   static getInstance = () => {
@@ -30,7 +29,7 @@ class MessagesDAOMySQL extends SQLContainer {
         fyh: formatDateToMysql(msgData.fyh),
       };
  
-      const messageInsertedId = await insertNewElement(this.config, this.tableName, data);
+      await insertNewElement(this.db, this.tableName, data);
       return { success: 'El mensaje fue añadido al sistema.' };
     } catch (error) {
       throw error;
@@ -39,7 +38,7 @@ class MessagesDAOMySQL extends SQLContainer {
 
   readMsgs = async () => {
     try {
-      const messages = await readAllElements(this.config, this.tableName);
+      const messages = await readAllElements(this.db, this.tableName);
       if (!messages.length) {
         throw 'No se encontraron mensajes en la base de datos.';
       }
@@ -51,7 +50,7 @@ class MessagesDAOMySQL extends SQLContainer {
 
   readMsgsByEmail = async (email) => {
     try {
-      const messages = await getMessagesByEmail(this.config, this.tableName, email);
+      const messages = await getMessagesByEmail(this.db, this.tableName, email);
       if (!messages.length) {
         throw 'No se encontraron mensajes en la base de datos.';
       }
