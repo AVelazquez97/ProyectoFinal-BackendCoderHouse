@@ -3,7 +3,7 @@ const setOrderSchema = (table) => {
   table.string('clientEmail').notNullable();
   table.string('clientAddress').notNullable();
   table.enu('status', ['Generada', 'Enviada']).defaultTo('Generada');
-  table.timestamp('timestamp');
+  table.timestamp('timestamp').defaultTo(knex.fn.now());
   return table;
 };
 

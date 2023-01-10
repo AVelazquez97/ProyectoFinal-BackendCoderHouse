@@ -22,7 +22,6 @@ class MessagesDAOMongoDB extends MongoDBContainer {
         email: msgData.author.email,
         msgType: msgData.author.msgType,
         msg: msgData.msg,
-        fyh: msgData.fyh,
       };
       await this.collectionName.create(data);
       return { success: 'El mensaje fue añadido al sistema.' };

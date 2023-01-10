@@ -29,7 +29,6 @@ export default async (io, socket) => {
   /* ------------------------ actualizacion de mensajes ----------------------- */
   socket.on('new-message', async (msg) => {
     try {
-      msg.fyh = new Date().toLocaleString();
       await messageDAO.insertMsg(msg);
 
       io.sockets.emit(

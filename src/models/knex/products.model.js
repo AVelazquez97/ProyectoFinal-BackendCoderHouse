@@ -6,7 +6,7 @@ const setProductSchema = (table) => {
   table.string('thumbnail').notNullable();
   table.float('price').notNullable();
   table.integer('stock').notNullable();
-  table.timestamp('timestamp');
+  table.timestamp('timestamp').defaultTo(knex.fn.now());
   return table;
 };
 

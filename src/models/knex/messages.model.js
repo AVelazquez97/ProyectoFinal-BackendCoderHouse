@@ -3,7 +3,7 @@ const setMsgSchema = (table) => {
   table.string("email").notNullable();
   table.enu('msgType', ['Usuario', 'Sistema']).notNullable();
   table.string("msg").notNullable();
-  table.timestamp('fyh');
+  table.timestamp('fyh').defaultTo(knex.fn.now());
   return table;
 };
 

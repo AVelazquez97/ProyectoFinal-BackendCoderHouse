@@ -26,7 +26,6 @@ class MessagesDAOMySQL extends SQLContainer {
         email: msgData.author.email,
         msgType: msgData.author.msgType,
         msg: msgData.msg,
-        fyh: formatDateToMysql(msgData.fyh),
       };
  
       await insertNewElement(this.db, this.tableName, data);

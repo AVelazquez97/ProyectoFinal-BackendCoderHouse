@@ -1,4 +1,14 @@
-+ Implementar capa de persistencia gestionada con MySQL (En proceso)
++ Reparar envío de mensajes
+
++ Mejorar mensaje de error de los swal
+
++ Actualizar readme
+
++ Arreglar timestamps con fechas correctas
+
++ Completar DAO MySQL - Persistencia 
+
++ Reparar input de filtrado por stock negativo en 
 
 + Documentar API con swagger
 

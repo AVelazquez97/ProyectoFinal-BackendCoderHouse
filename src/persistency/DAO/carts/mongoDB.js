@@ -113,6 +113,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
           'Error al listar: el carrito seleccionado no tiene productos.'
         );
       }
+      console.log(productsFromCart);
       return CartProductDTO.toDTO(productsFromCart);
     } catch (error) {
       throw error.message;
@@ -141,6 +142,7 @@ class CartsDAOMongoDB extends MongoDBContainer {
           _id: mongoose.Types.ObjectId(productDetail.id),
           timestamp: productDetail.timestamp,
           name: productDetail.name,
+          category: productDetail.category,
           description: productDetail.description,
           code: productDetail.code,
           thumbnail: productDetail.thumbnail,

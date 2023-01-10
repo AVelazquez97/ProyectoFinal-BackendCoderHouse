@@ -45,11 +45,6 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.4",
-    "twilio": "^3.83.3",
-    "@popperjs/core": "^2.11.6",
-    "bootstrap": "^5.2.3",
-    "boxicons": "^2.1.4",
-    "handlebars": "^4.7.7",
-    "sweetalert2": "^11.6.16"
+    "twilio": "^3.84.0"
   }
 }

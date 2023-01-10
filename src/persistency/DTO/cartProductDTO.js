@@ -1,6 +1,6 @@
 class CartProductDTO {
   constructor({
-    id,
+    _id,
     timestamp,
     name,
     category,
@@ -10,7 +10,7 @@ class CartProductDTO {
     price,
     quantity,
   }) {
-    this.id = id;
+    this.id = _id;
     this.timestamp = timestamp;
     this.name = name;
     this.category = category;
@@ -23,7 +23,7 @@ class CartProductDTO {
 
   #toJSON = () => {
     return {
-      id: this.id,
+      _id: this.id,
       timestamp: this.timestamp,
       name: this.name,
       category: this.category,
