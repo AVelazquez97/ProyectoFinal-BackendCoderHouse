@@ -2,7 +2,7 @@ import { Server as HttpServer } from 'http';
 import { Server as IoServer } from 'socket.io';
 import cluster from 'cluster';
 import { cpus } from 'os';
-import { CLUSTER_MODE, APP_PORT, ADMIN_MODE, PERSISTENCY } from './src/config/index.js';
+import { CLUSTER_MODE, PORT, ADMIN_MODE, PERSISTENCY } from './src/config/index.js';
 import { LoggerInfo, LoggerError } from './src/config/log4.js';
 import app from './src/app.js';
 import webSocket from './src/controllers/webSocket/index.socket.js';
@@ -30,7 +30,7 @@ if (CLUSTER_MODE && cluster.isPrimary) {
   const io = new IoServer(serverHTTP);
   webSocket(io);
 
-  const server = serverHTTP.listen(APP_PORT, () => {
+  const server = serverHTTP.listen(PORT, () => {
     LoggerInfo.info(`SERVIDOR HTTP ESCUCHANDO EN EL PUERTO: ${server.address().port}`);
     LoggerInfo.info(`NODE_ENV: ${process.env.NODE_ENV}`);
     LoggerInfo.info(`PERSISTENCIA: ${PERSISTENCY}`);

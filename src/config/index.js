@@ -12,7 +12,7 @@ const options = { default: { port: 8080 } };
 const args = parseArgs(process.argv.slice(2), options);
 
 /* ---------------------- environment variables import ---------------------- */
-const APP_PORT = process.env.APP_PORT || args.port;
+const PORT = process.env.PORT || args.port;
 
 const ADMIN_MODE = 'true' === process.env.ADMIN_MODE;
 
@@ -47,7 +47,7 @@ const TWILIO_CREDENTIALS = {
 };
 
 export {
-  APP_PORT,
+  PORT,
   ADMIN_MODE,
   CLUSTER_MODE,
   COOKIES_SECRET,

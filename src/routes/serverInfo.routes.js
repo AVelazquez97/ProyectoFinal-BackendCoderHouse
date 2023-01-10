@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { cpus } from 'os';
-import { PERSISTENCY, CLUSTER_MODE, APP_PORT } from '../config/index.js';
+import { PERSISTENCY, CLUSTER_MODE, PORT } from '../config/index.js';
 
 const router = Router();
 
@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   const info = {
     persitency: PERSISTENCY,
     clusterMode: CLUSTER_MODE,
-    port: APP_PORT,
+    port: PORT,
     environment: process.env.NODE_ENV,
     path: process.execPath, //Path de ejecución
     os: process.platform, //Nombre de la plataforma (sistema operativo)
